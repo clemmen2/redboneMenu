@@ -5,7 +5,7 @@
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "install": "bower install"
+    "install": "node_modules/.bin/bower install"
   },
   "repository": {
     "type": "git",
@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/clemmen2/redboneMenu/issues"
   },
-  "homepage": "https://github.com/clemmen2/redboneMenu"
+  "homepage": "https://github.com/clemmen2/redboneMenu",
+  "devDependencies": {
+    "bower": "^1.3.12"
+  }
 }
