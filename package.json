@@ -1,0 +1,20 @@
+{
+  "name": "redboneMenu",
+  "version": "1.0.0",
+  "description": "Creates a Set Menu for Redbone Reservations",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "bower install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clemmen2/redboneMenu"
+  },
+  "author": "Will Dixon",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/clemmen2/redboneMenu/issues"
+  },
+  "homepage": "https://github.com/clemmen2/redboneMenu"
+}
