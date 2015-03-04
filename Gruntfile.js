@@ -58,7 +58,7 @@ module.exports = function(grunt) {
 					collapseWhitespace: true
 				},
 				files: {
-					'dist/index.html': 'dist/index.html'
+					'src/index.html': 'dist/index.html'
 				}
 			}
 		},
@@ -68,20 +68,19 @@ module.exports = function(grunt) {
 		}
 	});
 	grunt.loadNpmTasks('grunt-contrib-clean');
-	grunt.loadNpmTasks('grunt-contrib-compress');
-	grunt.loadNpmTasks('grunt-contrib-concat');
+	//grunt.loadNpmTasks('grunt-contrib-compress');
+	//grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-copy');
-	grunt.loadNpmTasks('grunt-contrib-csslint');
+	//grunt.loadNpmTasks('grunt-contrib-csslint');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-htmlmin');
-	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.loadNpmTasks('grunt-contrib-less');
-	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-ejs');
+	//grunt.loadNpmTasks('grunt-contrib-jshint');
+	//grunt.loadNpmTasks('grunt-contrib-less');
+	//grunt.loadNpmTasks('grunt-contrib-uglify');
+	//grunt.loadNpmTasks('grunt-contrib-watch');
 
 	grunt.registerTask('css', ['copy:bootstrapcss']);
-	grunt.registerTask('js', ['copy:bootstrapjs', 'copy:angularjs', 'copy:jquery', 'copy:html5shiv']);
-	grunt.registerTask('html', ['ejs', 'htmlmin']);
+	grunt.registerTask('js', ['copy:angularjs', 'copy:html5shiv']);
+	grunt.registerTask('html', ['htmlmin']);
 	grunt.registerTask('default', ['copy:images', 'css', 'js', 'html']);
 };
