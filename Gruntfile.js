@@ -11,22 +11,28 @@ module.exports = function(grunt) {
 				src: '*.min.css',
 				dest: 'dist/css/'
 			},
-			bootstrapjs: {
+			bootstrapfonts: {
 				expand: true,
-				cwd: 'bower_components/bootstrap/dist/js/',
-				src: '*.min.js',
-				dest: 'dist/js/'
+				cwd: 'bower_components/bootstrap/dist/fonts/',
+				src: '*',
+				dest: 'dist/fonts'
 			},
 			angularjs: {
 				expand: true,
 				cwd: 'bower_components/angular/',
-				src: '*.min.js',
+				src: ['*.min.js'],
 				dest: 'dist/js/'
 			},
-			jquery: {
+			angularRoutejs: {
 				expand: true,
-				cwd: 'bower_components/jquery/dist/',
-				src: '*.min.js',
+				cwd: 'bower_components/angular-route/',
+				src: ['*.min.js'],
+				dest: 'dist/js/'
+			},
+			srcjs: {
+				expand: true,
+				cwd: 'src/js',
+				src: ['*.js'],
 				dest: 'dist/js/'
 			},
 			html5shiv: {
@@ -34,12 +40,6 @@ module.exports = function(grunt) {
 				cwd: 'bower_components/html5shiv/',
 				src: '*.min.js',
 				dest: 'dist/js/'
-			},
-			images: {
-				expand:true,
-				cwd: 'src/img/',
-				src: ['*.svg'],
-				dest: 'dist/img/'
 			}
 		},
 		ejs: {
@@ -57,9 +57,15 @@ module.exports = function(grunt) {
 					removeComments: true,
 					collapseWhitespace: true
 				},
-				files: {
-					'src/index.html': 'dist/index.html'
-				}
+				files: [
+					{
+						expand: true,     // Enable dynamic expansion.
+						cwd: 'src/',      // Src matches are relative to this path.
+						src: ['**/*.html'], // Actual pattern(s) to match.
+						dest: 'dist/',   // Destination path prefix.
+						ext: '.html'   // Dest filepaths will have this extension.
+					}
+				]
 			}
 		},
 		clean:{
@@ -79,8 +85,8 @@ module.exports = function(grunt) {
 	//grunt.loadNpmTasks('grunt-contrib-uglify');
 	//grunt.loadNpmTasks('grunt-contrib-watch');
 
-	grunt.registerTask('css', ['copy:bootstrapcss']);
-	grunt.registerTask('js', ['copy:angularjs', 'copy:html5shiv']);
+	grunt.registerTask('css', ['copy:bootstrapcss', 'copy:bootstrapfonts']);
+	grunt.registerTask('js', ['copy:angularjs', 'copy:angularRoutejs', 'copy:html5shiv', 'copy:srcjs']);
 	grunt.registerTask('html', ['htmlmin']);
-	grunt.registerTask('default', ['copy:images', 'css', 'js', 'html']);
+	grunt.registerTask('default', ['css', 'js', 'html']);
 };
