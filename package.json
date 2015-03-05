@@ -35,9 +35,15 @@
     "grunt-contrib-watch": "^0.6.1"
   },
   "window": {
+    "icon": "dog.png",
     "toolbar": false,
     "frame": false,
-    "width": 1280,
-    "height": 720
+    "width": 1000,
+    "height": 450,
+    "min_width": 1000,
+    "min_height": 450
+  },
+  "webkit": {
+    "plugin": true
   }
 }
