@@ -1,0 +1,7 @@
+.navbar{
+	-webkit-app-region: drag;
+	-webkit-user-select: none;
+}
+.navbar a{
+	-webkit-app-region: no-drag;
+}
