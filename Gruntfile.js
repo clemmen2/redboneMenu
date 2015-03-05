@@ -29,6 +29,18 @@ module.exports = function(grunt) {
 				src: ['*.min.js'],
 				dest: 'dist/js/'
 			},
+			jqueryjs: {
+				expand: true,
+				cwd: 'bower_components/jquery/dist/',
+				src: ['*.min.js'],
+				dest: 'dist/js/'
+			},
+			bootstrapjs: {
+				expand: true,
+				cwd: 'bower_components/bootstrap/dist/js/',
+				src: ['*.min.js'],
+				dest: 'dist/js/'
+			},
 			srcjs: {
 				expand: true,
 				cwd: 'src/js',
@@ -92,7 +104,7 @@ module.exports = function(grunt) {
 	//grunt.loadNpmTasks('grunt-contrib-watch');
 
 	grunt.registerTask('css', ['copy:bootstrapcss', 'copy:bootstrapfonts', 'copy:srccss']);
-	grunt.registerTask('js', ['copy:angularjs', 'copy:angularRoutejs', 'copy:html5shiv', 'copy:srcjs']);
+	grunt.registerTask('js', ['copy:angularjs', 'copy:angularRoutejs', 'copy:html5shiv', 'copy:srcjs', 'copy:bootstrapjs', 'copy:jqueryjs']);
 	grunt.registerTask('html', ['htmlmin']);
 	grunt.registerTask('default', ['css', 'js', 'html']);
 };

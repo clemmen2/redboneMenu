@@ -1,0 +1,38 @@
+<div class='alert alert-danger' role='alert' ng-if='form.err.length > 0'>
+<div ng-repeat='error in form.err'>Please check the {{error}} section.</div>
+</div>
+<div class='row'>
+	<div class='col-sm-10'>
+		<input type='text' placeholder='Name' class='form-control' ng-model='form.name'>
+	</div>
+	<div class = 'col-sm-2'>
+		<input type='number' placeholder='Price' class='form-control' ng-disabled="form.category.name == 'Dressing'" format='number' ng-model='form.price'>
+	</div>
+</div>
+
+<div class='row'>
+	<div class='col-sm-12'>
+		<textarea class='form-contol col-xs-12 noResize' rows='10' placeholder='Description' ng-model='form.desc' ng-disabled="form.category.name == 'Dressing'"></textarea>
+	</div>
+</div>
+
+<div class='row'>
+	<div class='col-sm-4'>
+		<select class="form-control" ng-model='form.category' ng-options='cat.name for cat in form.cat'></select>
+	</div>
+	<div class='col-sm-4'>
+		<div class="input-group">
+			<span class="input-group-addon">
+				<input type="checkbox" ng-model='form.lunch' ng-disabled="form.category.name == 'Dressing'" ng-change="form.lunchPrice=null">
+			</span>
+			<input type="number" class="form-control" ng-disabled="!form.lunch || form.category.name == 'Dressing'" placeholder='Lunch Price' ng-model='form.lunchPrice'>
+		</div>
+	</div>
+	<div class='col-sm-2'>
+		<button ng-if='form.which === "add"' class='btn btn-success' ng-click='form.add()'>Add Item</button>
+		<button ng-if='form.which === "edit"' class='btn btn-success' ng-click='form.edit()'>Change</button>
+	</div>
+	<div class='col-sm-2'>
+		<button class='btn btn-warning' ng-click='form.clear()'>Reset</button>
+	</div>
+</div>

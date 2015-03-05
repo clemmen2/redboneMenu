@@ -1,1 +1,10 @@
-<h1>This is the edit page</h1>
+<div ng-controller='formCtrl as form'>
+	<div class='row'>
+		<div class='col-sm-3'>
+			Tree View Here
+		</div>
+		<div class='col-sm-9'>
+			<ng-include src="'tmpl/addEditForm.html'" onload="form.whichForm('edit')"></ng-include>
+		</div>
+	</div>
+</div>
