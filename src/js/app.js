@@ -1,4 +1,4 @@
-var setMenuApp = angular.module('setMenuApp', ['ngRoute'])
+angular.module('setMenuApp', ['ngRoute'])
 
 	.config(function($routeProvider) {
 		$routeProvider

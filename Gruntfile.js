@@ -35,6 +35,12 @@ module.exports = function(grunt) {
 				src: ['*.js'],
 				dest: 'dist/js/'
 			},
+			srccss: {
+				expand: true,
+				cwd: 'src/css',
+				src: ['*.css'],
+				dest: 'dist/css/'
+			},
 			html5shiv: {
 				expand: true,
 				cwd: 'bower_components/html5shiv/',
@@ -85,7 +91,7 @@ module.exports = function(grunt) {
 	//grunt.loadNpmTasks('grunt-contrib-uglify');
 	//grunt.loadNpmTasks('grunt-contrib-watch');
 
-	grunt.registerTask('css', ['copy:bootstrapcss', 'copy:bootstrapfonts']);
+	grunt.registerTask('css', ['copy:bootstrapcss', 'copy:bootstrapfonts', 'copy:srccss']);
 	grunt.registerTask('js', ['copy:angularjs', 'copy:angularRoutejs', 'copy:html5shiv', 'copy:srcjs']);
 	grunt.registerTask('html', ['htmlmin']);
 	grunt.registerTask('default', ['css', 'js', 'html']);
