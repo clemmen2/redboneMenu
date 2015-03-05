@@ -13,17 +13,17 @@
 		<![endif]-->
 	</head>
 	<body ng-app='setMenuApp'>
-		<nav class="navbar navbar-inverse">
+		<nav class="navbar navbar-inverse appBar" ng-controller='navManagement as manage'>
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#">{{Title}}</a>
+					<a class="navbar-brand" href="#/" ng-click='manage.setPage(1)'>{{title}}</a>
 				</div>
 				<ul class="nav navbar-nav">
-					<li><a href='#/create'>Create</a></li>
-					<li><a href='#/edit'>Edit</a></li>
-					<li><a href='#/add'>Add</a></li>
+					<li class="{{manage.index === 1 ? 'active' : ''}}"><a href='#/create' ng-click='manage.setPage(1)'>Create</a></li>
+					<li class="{{manage.index === 2 ? 'active' : ''}}"><a href='#/edit' ng-click='manage.setPage(2)'>Edit</a></li>
+					<li class="{{manage.index === 3 ? 'active' : ''}}"><a href='#/add' ng-click='manage.setPage(3)'>Add</a></li>
 				</ul>
-				<ul class="nav navbar-nav navbar-right" ng-controller='windowManagement as manage'>
+				<ul class="nav navbar-nav navbar-right">
 					<li><a href=''><span class="glyphicon glyphicon-minus" aria-hidden="true" ng-click='manage.winMin()'></span></a></li>
 					<li><a href=''><span class="glyphicon glyphicon-plus" aria-hidden="true" ng-click='manage.winMax()'></span></a></li>
 					<li><a href=''><span class="glyphicon glyphicon-remove" aria-hidden="true" ng-click='manage.winClose()'></span></a></li>
@@ -36,5 +36,6 @@
 		<script src='js/angular.min.js'></script>
 		<script src='js/angular-route.min.js'></script>
 		<script src='js/app.js'></script>
+		<script src='js/controllers.js'></script>
 	</body>
 </html>
