@@ -45,5 +45,8 @@
   },
   "webkit": {
     "plugin": true
+  },
+  "dependencies": {
+    "nedb": "^1.1.1"
   }
 }

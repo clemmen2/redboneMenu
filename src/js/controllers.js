@@ -1,4 +1,4 @@
-angular.module('appControllers', [])
+angular.module('appControllers', ['appServices'])
 
 	.controller('navManagement', function(){
 		var gui = require('nw.gui');
@@ -28,7 +28,7 @@ angular.module('appControllers', [])
 		});
 	})
 
-	.controller('formCtrl', ['$filter', function($filter){
+	.controller('formCtrl', ['valForm', function(valForm){
 		this.cat = [
 			{name:'Entree', pos: 2},
 			{name:'Appetizers', pos: 1},
@@ -44,32 +44,13 @@ angular.module('appControllers', [])
 			this.which = form;
 		};
 		this.add = function() {
-			this.err = [];
-			if (this.name == null || this.name == '')
-				this.err.push('Name');
-			if (this.category.name != 'Dressing') {
-				if(this.price == null)
-					this.err.push('Price');
-				if(this.lunch && this.lunchPrice == null)
-					this.err.push('Lunch');
-				if(this.desc == null || this.name == '')
-					this.err.push('Description');
-				var item = {
-					name: this.name,
-					price: $filter('currency')(this.price,'',2),
-					lunch: this.lunch,
-					lunchPrice: $filter('currency')(this.lunchPrice,'',2),
-					desc: this.desc,
-					category: this.category,
-				};
-			} else {
-				var item = {
-					name: this.name,
-					category: this.category,
-				};
+			var val = valForm(this);
+			if (val.constructor === Array){
+				this.err = val;
+			}else{
+				this.err = [];
+				console.log(val);
 			};
-			if(this.err.length == 0)
-				console.log(item);
 		};
 		this.clear = function() {
 			this.name = '';
