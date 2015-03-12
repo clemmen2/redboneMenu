@@ -37,7 +37,8 @@ angular.module('appControllers', ['appServices'])
 			{name:'Pasta and Rice', mainCat: 'Entree'},
 			{name:'Sandwiches', mainCat: 'Entree'},
 			{name:'Salads', mainCat: 'Entree'},
-			{name:'Dressing', pos: 3}
+			{name:'Dressing', pos: 4},
+			{name:'Desert', pos: 3}
 		];
 		this.category = this.cat[0];
 		this.whichForm = function(form){
