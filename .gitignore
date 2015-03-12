@@ -28,5 +28,5 @@ dist
 
 # Users Environment Variables
 .lock-wscript
-setMenu.sublime-project
-setMenu.sublime-workspace
+redbone.sublime-project
+redbone.sublime-workspace

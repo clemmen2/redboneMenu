@@ -17,4 +17,7 @@ angular.module('setMenuApp', ['ngRoute', 'appControllers'])
 	})
 	.run(function($rootScope) {
 		$rootScope.title='Redbone Set Menu';
+		var datastore = require('nedb');
+		var path = require('path');
+		$rootScope.db = new datastore({ filename: path.join(require('nw.gui').App.dataPath, 'menu.db'), autoload: true });
 	});
