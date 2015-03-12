@@ -1,6 +1,6 @@
 angular.module('appControllers', ['appServices'])
 
-	.controller('navManagement', function(){
+	.controller('navManagement', ['getMainCat', 'getCat', 'Cat', 'mainCat', 'addCat', function(getMainCat, getCat, Cat, mainCat, addCat){
 		var gui = require('nw.gui');
 		var win = gui.Window.get();
 		win.isMax = false;
@@ -26,44 +26,83 @@ angular.module('appControllers', ['appServices'])
 		win.on('unmaximize', function(){
 			win.isMax = false;
 		});
-	})
-
-	.controller('formCtrl', ['valForm', function(valForm){
-		this.cat = [
-			{name:'Entree', pos: 2},
-			{name:'Appetizers', pos: 1},
-			{name:'Grits and Specialties', mainCat: 'Entree'},
-			{name:'Steaks', mainCat: 'Entree'},
-			{name:'Pasta and Rice', mainCat: 'Entree'},
-			{name:'Sandwiches', mainCat: 'Entree'},
-			{name:'Salads', mainCat: 'Entree'},
-			{name:'Dressing', pos: 4},
-			{name:'Desert', pos: 3}
-		];
-		this.category = this.cat[0];
-		this.whichForm = function(form){
-			this.which = form;
+		if (mainCat.getCat().length == 0){
+			getMainCat(mainCat.addCat,addCat);
 		};
-		this.add = function() {
-			var val = valForm(this);
+		if (Cat.getCat().length == 0){
+			getCat(Cat.addCat);
+		};
+	}])
+
+	.controller('formCtrl', ['$scope', 'valForm','getMainCat', 'getCat', 'Cat', 'mainCat', 'addCat', function($scope, valForm, getMainCat, getCat, Cat, mainCat, addCat){
+		var that = this;
+		that.whichForm = function(form){
+			that.which = form;
+		};
+		that.add = function() {
+			var val = valForm(that);
 			if (val.constructor === Array){
-				this.err = val;
+				that.err = val;
 			}else{
-				this.err = [];
-				console.log(val);
+				that.err = [];
+				if (that.isCat){
+					addCat(val,Cat.addCat);
+					that.name=null;
+				}else{
+					console.log(val)
+				}
 			};
 		};
-		this.clear = function() {
-			this.name = '';
-			this.price = null;
-			this.desc = '';
-			this.category = this.cat[0];
-			this.lunch = false;
-			this.lunchPrice = null;
-			this.err = [];
+		that.clear = function() {
+			that.name = null;
+			that.price = null;
+			that.desc = null;
+			that.category = that.cat[0];
+			that.lunch = false;
+			that.lunchPrice = null;
+			that._id = null;
+			that.isCat = false;
+			that.err = [];
 		};
-		this.edit = function() {
-			console.log('Editing.')
+		that.edit = function(id) {
+			var val = valForm(this);
+			if (val.constructor === Array){
+				that.err = val;
+				if (id == null)
+					that.err.push('Please select item to edit.');
+			}else{
+				that.err = [];
+				if (id == null){
+					that.err.push('Please select item to edit.');
+				}else{
+					val._id = id;
+					console.log(val);
+				};
+			};
 		};
 
-	}]);
+		that.updateMainCat = function(){
+			that.mainCat = mainCat.getCat();
+		};
+
+		that.updateCat = function(){
+			that.cat = Cat.getCat();
+		};
+
+		that.isCatChange = function(){
+			if(that.isCat){
+				that.name = null;
+				that.updateMainCat();
+				that.category = that.mainCat[0];
+			}else{
+				that.name = null;
+				that.updateCat();
+				that.category = that.cat[0];
+			}
+		};
+		that.isCatChange();	
+	}])
+
+	.controller('treeCtrl', [function(){
+
+	}])

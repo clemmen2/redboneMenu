@@ -20,4 +20,5 @@ angular.module('setMenuApp', ['ngRoute', 'appControllers'])
 		var datastore = require('nedb');
 		var path = require('path');
 		$rootScope.db = new datastore({ filename: path.join(require('nw.gui').App.dataPath, 'menu.db'), autoload: true });
+		$rootScope.dbCat = new datastore({ filename: path.join(require('nw.gui').App.dataPath, 'cat.db'), autoload: true });
 	});
