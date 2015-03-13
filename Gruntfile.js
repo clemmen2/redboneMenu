@@ -60,15 +60,6 @@ module.exports = function(grunt) {
 				dest: 'dist/js/'
 			}
 		},
-		ejs: {
-			all: {
-				expand: true,
-				cwd: 'src/',
-				src: ['*.ejs'],
-				dest: 'dist/',
-				ext: '.html'
-			}
-		},
 		htmlmin: {
 			dist: {
 				options: {
@@ -88,23 +79,66 @@ module.exports = function(grunt) {
 		},
 		clean:{
 			dist: ['dist'],
-			css: ['dist/css/*.css', '!dist/css/*.min.css']
+			js: ['dist/js/*.js', '!dist/js/*.min.js']
+		},
+		jshint:{
+			src:{
+				files: {
+					src: ['src/js/*.js']
+				} 
+			},
+			concat:{
+				files: {
+					src: ['dist/js/redbone.js']
+				}
+			}
+		},
+		concat: {
+			src:{
+				files:{
+					'dist/js/redbone.js': ['src/js/*.js']
+				}
+			}
+		},
+		uglify:{
+			options: {
+				mangle:false
+			},
+			src: {
+				files: {
+					'dist/js/redbone.min.js': ['dist/js/redbone.js']
+				}
+			}
+		},
+		csslint:{
+			src: {
+				files: {
+					src: ['src/css/style.css']
+				}
+			}
+		},
+		cssmin:{
+			src: {
+				files: {
+					'dist/css/style.min.css': ['src/css/style.css']
+				}
+			}
 		}
 	});
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	//grunt.loadNpmTasks('grunt-contrib-compress');
-	//grunt.loadNpmTasks('grunt-contrib-concat');
+	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-copy');
-	//grunt.loadNpmTasks('grunt-contrib-csslint');
+	grunt.loadNpmTasks('grunt-contrib-csslint');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-htmlmin');
-	//grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
 	//grunt.loadNpmTasks('grunt-contrib-less');
-	//grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
 	//grunt.loadNpmTasks('grunt-contrib-watch');
 
-	grunt.registerTask('css', ['copy:bootstrapcss', 'copy:bootstrapfonts', 'copy:srccss']);
-	grunt.registerTask('js', ['copy:angularjs', 'copy:angularRoutejs', 'copy:html5shiv', 'copy:srcjs', 'copy:bootstrapjs', 'copy:jqueryjs']);
+	grunt.registerTask('css', ['copy:bootstrapcss', 'copy:bootstrapfonts', 'csslint', 'cssmin']);
+	grunt.registerTask('js', ['copy:angularjs', 'copy:angularRoutejs', 'copy:html5shiv', 'copy:bootstrapjs', 'copy:jqueryjs', 'jshint:src', 'concat:src', 'jshint:concat', 'uglify:src','clean:js']);
 	grunt.registerTask('html', ['htmlmin']);
 	grunt.registerTask('default', ['css', 'js', 'html']);
 };

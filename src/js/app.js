@@ -1,6 +1,6 @@
 angular.module('setMenuApp', ['ngRoute', 'appControllers', 'appServices'])
 
-	.config(function($routeProvider) {
+	.config(['$routeProvider', function($routeProvider) {
 		$routeProvider
 			.when('/create', {
 				templateUrl: 'tmpl/create.html'
@@ -16,8 +16,8 @@ angular.module('setMenuApp', ['ngRoute', 'appControllers', 'appServices'])
 			})
 			.when('/', {
 				redirectTo: '/create'
-			})
-	})
+			});
+	}])
 	.run(['$rootScope', 'Cat', 'Item', function($rootScope, Cat, Item) {
 		$rootScope.title='Redbone Set Menu';
 		var datastore = require('nedb');
