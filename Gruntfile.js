@@ -79,7 +79,8 @@ module.exports = function(grunt) {
 		},
 		clean:{
 			dist: ['dist'],
-			js: ['dist/js/*.js', '!dist/js/*.min.js']
+			js: ['dist/js/*.js', '!dist/js/*.min.js'],
+			zip: ['*zip']
 		},
 		jshint:{
 			src:{
@@ -123,10 +124,45 @@ module.exports = function(grunt) {
 					'dist/css/style.min.css': ['src/css/style.css']
 				}
 			}
+		},
+		compress:{
+			distWin32: {
+				options: {
+					archive:'redboneWin32.zip'
+				},
+				files:[
+				{expand:true,cwd:'nwWin32/',src:['**'],dest:'.'},
+				{expand:true,cwd:'dist/',src:['**'],dest:'dist/'},
+				{expand:true,cwd:'.',src:['package.json','dog.png','LICENSE'],dest:'.'},
+				{expand:true,cwd:'node_modules/',src:['nedb/**'],dest:'node_modules/'}
+				]
+			},
+			distLinux32: {
+				options: {
+					archive:'redboneLinux32.zip'
+				},
+				files:[
+				{expand:true,cwd:'nwLinux32/',src:['**'],dest:'.'},
+				{expand:true,cwd:'dist/',src:['**'],dest:'dist/'},
+				{expand:true,cwd:'.',src:['package.json','dog.png','LICENSE'],dest:'.'},
+				{expand:true,cwd:'node_modules/',src:['nedb/**'],dest:'node_modules/'}
+				]
+			},
+			distOsx32: {
+				options: {
+					archive:'redboneOsx32.zip'
+				},
+				files:[
+				{expand:true,cwd:'nwOsx32/',src:['**'],dest:'.'},
+				{expand:true,cwd:'dist/',src:['**'],dest:'dist/'},
+				{expand:true,cwd:'.',src:['package.json','dog.png','LICENSE'],dest:'.'},
+				{expand:true,cwd:'node_modules/',src:['nedb/**'],dest:'node_modules/'}
+				]
+			}
 		}
 	});
 	grunt.loadNpmTasks('grunt-contrib-clean');
-	//grunt.loadNpmTasks('grunt-contrib-compress');
+	grunt.loadNpmTasks('grunt-contrib-compress');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-csslint');
@@ -140,5 +176,6 @@ module.exports = function(grunt) {
 	grunt.registerTask('css', ['copy:bootstrapcss', 'copy:bootstrapfonts', 'csslint', 'cssmin']);
 	grunt.registerTask('js', ['copy:angularjs', 'copy:angularRoutejs', 'copy:html5shiv', 'copy:bootstrapjs', 'copy:jqueryjs', 'jshint:src', 'concat:src', 'jshint:concat', 'uglify:src','clean:js']);
 	grunt.registerTask('html', ['htmlmin']);
+	grunt.registerTask('dist', ['default', 'compress', 'clean:dist'])
 	grunt.registerTask('default', ['css', 'js', 'html']);
 };
