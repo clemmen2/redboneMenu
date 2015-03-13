@@ -1,7 +1,35 @@
 angular.module('appServices',[])
 
-	.factory('getMainCat', ['$rootScope', function($rootScope){
-		return function(serv,backup) {
+	.service('Cat', ['$rootScope', function($rootScope){
+		var mainCatList = new Array;
+		var CatList = new Array;
+		var addMainCat = function(cat){
+			for (var obj in cat) {
+				mainCatList.push(cat[obj]);
+			};
+		};
+		var getMainCat = function(){
+			return mainCatList;
+		};
+		var addCat = function(cat){
+			for (var obj in cat){
+				CatList.push(cat[obj]);
+			};
+		};
+		var getCat = function(){
+			return CatList;
+		};
+		var remCat = function(id, callback){
+			var newCatList=[];
+			for (var obj in CatList){
+				if (CatList[obj]._id != id){
+					newCatList.push(CatList[obj]);
+				};
+			};
+			CatList = newCatList;
+			callback();
+		}
+		var getMainCatDB = function(serv,backup) {
 			$rootScope.dbCat.find({mainCat:{$exists: false}}).sort({pos: 1}).exec(function(err, docs){
 				if(docs.length == 0){
 					docs.push({name: 'Appetizers', pos: 1});
@@ -13,88 +41,83 @@ angular.module('appServices',[])
 				serv(docs);
 			});
 		};
-	}])
-
-	.service('mainCat', [function(){
-		var mainCatList = new Array;
-		var addCat = function(cat){
-			for (var obj in cat) {
-				mainCatList.push(cat[obj]);
-			};
-		};
-		var getCat = function(){
-			return mainCatList;
-		};
-		return {
-			addCat: addCat,
-			getCat: getCat
-		}
-	}])
-
-	.factory('getCat', ['$rootScope', function($rootScope){
-		return function(serv) {
-			$rootScope.dbCat.find({mainCat:{$exists: true}}).sort({'mainCat.pos' : 1,name: 1}).exec(function(err, docs){
+		var getCatDB = function(serv) {
+			$rootScope.dbCat.find({mainCat:{$exists: true}}).sort({'mainCat.pos' : 1}).exec(function(err, docs){
 				serv(docs);
 			});
 		};
-	}])
-
-	.service('Cat', [function($rootScope){
-		var CatList = new Array;
-		var addCat = function(cat){
-			for (var obj in cat){
-				CatList.push(cat[obj]);
-			};
-		};
-		var getCat = function(){
-			return CatList;
-		};
-		return {
-			addCat: addCat,
-			getCat: getCat
-		}
-	}])
-
-	.factory('addCat', ['$rootScope', function($rootScope){
-		return function(item,serv){
+		var addCatDB = function(item,serv){
 			$rootScope.dbCat.insert(item,function(err,newDoc){
 				if(serv)
 					serv([newDoc]);
 			});
 		};
-	}])
-
-	.factory('remCat', ['$rootScope', function($rootScope){
-		return function(id){
-			$rootScope.dbCat.remove({_id: id},{});
-		};
-	}])
-
-	.factory('getItems', ['$rootScope', function($rootScope){
-		return function(callback) {
-			$rootScope.db.find({}, function(err, docs){
-				callback(docs);
+		var remCatDB = function(id,serv,callback){
+			$rootScope.dbCat.remove({_id: id},{},function(err,num){
+				serv(id,callback);
 			});
 		};
-	}])
-
-	.factory('addItem', ['$rootScope', function($rootScope){
-		return function(item){
-			$rootScope.db.insert(item);
+		return {
+			addMainCat: addMainCat,
+			getMainCat: getMainCat,
+			addCat: addCat,
+			getCat: getCat,
+			getMainCatDB: getMainCatDB,
+			getCatDB: getCatDB,
+			addCatDB: addCatDB,
+			remCatDB: remCatDB,
+			remCat: remCat
 		};
 	}])
 
-	.factory('getItem', ['$rootScope', function($rootScope){
-		return function(id, callback){
+	.service('Item', ['$rootScope', function($rootScope){
+		var listItems = new Array;
+		var getItems = function(){
+			return listItems;
+		};
+		var addItem = function(item){
+			for (var obj in item){
+				listItems.push(item[obj]);
+			};
+		};
+		var remItem = function(id,callback){
+			var newListItems=[];
+			for (var obj in listItems){
+				if (listItems[obj]._id != id){
+					newListItems.push(listItems[obj]);
+				};
+			};
+			listItems = newListItems;
+			callback();
+		};
+		var getItemsDB = function(serv) {
+			$rootScope.db.find({}).sort({'category.mainCat.pos':1}).exec(function(err, docs){
+				serv(docs);
+			});
+		};
+		var addItemDB = function(item,serv){
+			$rootScope.db.insert(item,function(err,newDoc){
+				serv([newDoc]);
+			});
+		};
+		var getItemDB = function(id, callback){
 			$rootScope.db.findOne({_id: id}, function(err,doc){
 				callback(doc);
 			});
 		};
-	}])
-
-	.factory('remItem', ['$rootScope', function($rootScope){
-		return function(id){
-			$rootScope.db.remove({_id: id},{});
+		var remItemDB = function(id,serv,callback){
+			$rootScope.db.remove({_id: id},{},function(err,num){
+				serv(id,callback);
+			});
+		};
+		return {
+			getItemsDB: getItemsDB,
+			addItemDB: addItemDB,
+			getItemDB: getItemDB,
+			remItemDB: remItemDB,
+			getItems: getItems,
+			addItem: addItem,
+			remItem: remItem
 		};
 	}])
 

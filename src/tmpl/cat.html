@@ -2,7 +2,8 @@
 	<div class='row'>
 		<div class='col-sm-3' ng-controller='treeCtrl as tree'>
 					<ul class="list-group">
-						<li ng-repeat='cat in tree.cats' class='list-group-item'><a href='#/cat/{{cat._id}}'>{{cat.name}}</a><button class='close pull-right' ng-click='tree.removeCat(cat._id)'>&times;</button></li>
+						<li class='list-group-item'><a href='#/edit'>Back</a></li>
+						<li class='list-group-item' ng-repeat='item in tree.items' ng-if='item.category._id == tree.catId'><a href=''>{{item.name}}</a><button class='close pull-right' ng-click='tree.removeItem(item._id)'>&times;</button></li>
 					</ul>
 		</div>
 		<div class='col-sm-9' ng-controller='formCtrl as form'>

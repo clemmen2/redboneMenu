@@ -1,6 +1,6 @@
-angular.module('appControllers', ['appServices'])
+angular.module('appControllers', [])
 
-	.controller('navManagement', ['getMainCat', 'getCat', 'Cat', 'mainCat', 'addCat', function(getMainCat, getCat, Cat, mainCat, addCat){
+	.controller('navManagement', [function(){
 		var gui = require('nw.gui');
 		var win = gui.Window.get();
 		win.isMax = false;
@@ -26,15 +26,10 @@ angular.module('appControllers', ['appServices'])
 		win.on('unmaximize', function(){
 			win.isMax = false;
 		});
-		if (mainCat.getCat().length == 0){
-			getMainCat(mainCat.addCat,addCat);
-		};
-		if (Cat.getCat().length == 0){
-			getCat(Cat.addCat);
-		};
+		
 	}])
 
-	.controller('formCtrl', ['$scope', 'valForm','getMainCat', 'getCat', 'Cat', 'mainCat', 'addCat', function($scope, valForm, getMainCat, getCat, Cat, mainCat, addCat){
+	.controller('formCtrl', ['$scope', 'valForm', 'Cat', 'Item', function($scope, valForm, Cat, Item){
 		var that = this;
 		that.whichForm = function(form){
 			that.which = form;
@@ -46,10 +41,11 @@ angular.module('appControllers', ['appServices'])
 			}else{
 				that.err = [];
 				if (that.isCat){
-					addCat(val,Cat.addCat);
-					that.name=null;
+					Cat.addCatDB(val,Cat.addCat);
+					that.clear();
 				}else{
-					console.log(val)
+					Item.addItemDB(val,Item.addItem);
+					that.clear();
 				}
 			};
 		};
@@ -82,7 +78,7 @@ angular.module('appControllers', ['appServices'])
 		};
 
 		that.updateMainCat = function(){
-			that.mainCat = mainCat.getCat();
+			that.mainCat = Cat.getMainCat();
 		};
 
 		that.updateCat = function(){
@@ -103,6 +99,23 @@ angular.module('appControllers', ['appServices'])
 		that.isCatChange();	
 	}])
 
-	.controller('treeCtrl', [function(){
-
+	.controller('treeCtrl', ['$scope','$routeParams','Item', 'Cat', function($scope,$routeParams,Item,Cat){
+		var me = this;
+		if($routeParams.catId){
+			me.catId = $routeParams.catId;
+		}
+		me.update = function(){
+			me.cats = Cat.getCat();
+			me.items = Item.getItems();
+		};
+		me.update();
+		me.removeItem = function(id) {
+			Item.remItemDB(id,Item.remItem,function(){
+				me.update();
+				$scope.$apply();
+			});
+		};
+		me.removeCat = function(id){
+			console.log(id);
+		};
 	}])
