@@ -47,7 +47,7 @@ angular.module('appControllers', [])
 					Item.addItemDB(val,Item.addItem);
 					that.clear();
 				}
-			};
+			}
 		};
 		that.clear = function() {
 			that.name = null;
@@ -64,17 +64,17 @@ angular.module('appControllers', [])
 			var val = valForm(this);
 			if (val.constructor === Array){
 				that.err = val;
-				if (id == null)
+				if (id === null)
 					that.err.push('Please select item to edit.');
 			}else{
 				that.err = [];
-				if (id == null){
+				if (id === null){
 					that.err.push('Please select item to edit.');
 				}else{
 					val._id = id;
 					console.log(val);
-				};
-			};
+				}
+			}
 		};
 
 		that.updateMainCat = function(){
@@ -118,4 +118,4 @@ angular.module('appControllers', [])
 		me.removeCat = function(id){
 			console.log(id);
 		};
-	}])
+	}]);
