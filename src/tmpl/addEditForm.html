@@ -6,7 +6,7 @@
 		<input type='text' placeholder='Name' class='form-control' ng-model='form.item.name'>
 	</div>
 	<div class = 'col-sm-2'>
-		<input type='number' placeholder='Price' class='form-control' ng-disabled="form.item.category.name == 'Dressing'" format='number' ng-model='form.item.price'>
+		<input type='text' placeholder='Price' class='form-control' ng-disabled="form.item.category.name == 'Dressing'" format='number' ng-model='form.item.price'>
 	</div>
 </div>
 
@@ -25,7 +25,7 @@
 			<span class="input-group-addon">
 				<input type="checkbox" ng-model='form.item.lunch' ng-disabled="form.item.category.name == 'Dressing'" ng-change="form.lunchPrice=null">
 			</span>
-			<input type="number" class="form-control" ng-disabled="!form.item.lunch || form.item.category.name == 'Dressing'" placeholder='Lunch Price' ng-model='form.item.lunchPrice'>
+			<input type="text" class="form-control" ng-disabled="!form.item.lunch || form.item.category.name == 'Dressing'" placeholder='Lunch Price' ng-model='form.item.lunchPrice'>
 		</div>
 	</div>
 	<div class='col-sm-2'>
