@@ -174,7 +174,7 @@ module.exports = function(grunt) {
 	//grunt.loadNpmTasks('grunt-contrib-watch');
 
 	grunt.registerTask('css', ['copy:bootstrapcss', 'copy:bootstrapfonts', 'csslint', 'cssmin']);
-	grunt.registerTask('js', ['copy:angularjs', 'copy:angularRoutejs', 'copy:html5shiv', 'copy:bootstrapjs', 'copy:jqueryjs', 'jshint:src', 'concat:src', 'jshint:concat', 'uglify:src','clean:js']);
+	grunt.registerTask('js', ['copy:angularjs', 'copy:angularRoutejs', 'copy:html5shiv', 'copy:bootstrapjs', 'copy:jqueryjs', 'jshint:src', 'concat:src', 'jshint:concat']);
 	grunt.registerTask('html', ['htmlmin']);
 	grunt.registerTask('dist', ['default', 'compress', 'clean:dist'])
 	grunt.registerTask('default', ['css', 'js', 'html']);

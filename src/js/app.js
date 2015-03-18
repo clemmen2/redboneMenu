@@ -1,4 +1,4 @@
-angular.module('setMenuApp', ['ngRoute', 'appControllers', 'appServices'])
+angular.module('setMenuApp', ['ngRoute', 'appControllers'])
 
 	.config(['$routeProvider', function($routeProvider) {
 		$routeProvider
@@ -18,13 +18,6 @@ angular.module('setMenuApp', ['ngRoute', 'appControllers', 'appServices'])
 				redirectTo: '/create'
 			});
 	}])
-	.run(['$rootScope', 'Cat', 'Item', function($rootScope, Cat, Item) {
+	.run(['$rootScope', function($rootScope) {
 		$rootScope.title='Redbone Set Menu';
-		var datastore = require('nedb');
-		var path = require('path');
-		$rootScope.db = new datastore({ filename: path.join(require('nw.gui').App.dataPath, 'menu.db'), autoload: true });
-		$rootScope.dbCat = new datastore({ filename: path.join(require('nw.gui').App.dataPath, 'cat.db'), autoload: true });
-		Cat.getMainCatDB(Cat.addMainCat,Cat.addCatDB);
-		Cat.getCatDB(Cat.addCat);
-		Item.getItemsDB(Item.addItem);
 	}]);
