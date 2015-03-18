@@ -1,32 +1,31 @@
 <div class='alert alert-danger' role='alert' ng-if='form.err.length > 0'>
-<div ng-repeat='error in form.err'>{{error}}</div>
+	<div ng-repeat='error in form.err'>{{error.from|uppercase}}: {{error.error}}</div>
 </div>
 <div class='row'>
 	<div class='col-sm-10'>
-		<input type='text' placeholder='Name' class='form-control' ng-model='form.name'>
+		<input type='text' placeholder='Name' class='form-control' ng-model='form.item.name'>
 	</div>
 	<div class = 'col-sm-2'>
-		<input type='number' placeholder='Price' class='form-control' ng-disabled="form.category.name == 'Dressing'||form.isCat" format='number' ng-model='form.price'>
+		<input type='number' placeholder='Price' class='form-control' ng-disabled="form.item.category.name == 'Dressing'" format='number' ng-model='form.item.price'>
 	</div>
 </div>
 
 <div class='row'>
 	<div class='col-sm-12'>
-		<textarea class='form-contol col-xs-12 noResize' rows='10' placeholder='Description' ng-model='form.desc' ng-disabled="form.category.name == 'Dressing'||form.isCat"></textarea>
+		<textarea class='form-contol col-xs-12 noResize' rows='10' placeholder='Description' ng-model='form.item.desc' ng-disabled="form.item.category.name == 'Dressing'"></textarea>
 	</div>
 </div>
 
 <div class='row'>
 	<div class='col-sm-4'>
-		<select class="form-control" ng-model='form.category' ng-if='!form.isCat' ng-options='cat.name for cat in form.cat'></select>
-		<select class="form-control" ng-model='form.category' ng-if='form.isCat' ng-options='cat.name for cat in form.mainCat'></select>
+		<select class="form-control" ng-model='form.item.category' ng-options='cat.name for cat in form.cats'></select>
 	</div>
 	<div class='col-sm-4'>
 		<div class="input-group">
 			<span class="input-group-addon">
-				<input type="checkbox" ng-model='form.lunch' ng-disabled="form.category.name == 'Dressing'||form.isCat" ng-change="form.lunchPrice=null">
+				<input type="checkbox" ng-model='form.item.lunch' ng-disabled="form.item.category.name == 'Dressing'" ng-change="form.lunchPrice=null">
 			</span>
-			<input type="number" class="form-control" ng-disabled="!form.lunch || form.category.name == 'Dressing'||form.isCat" placeholder='Lunch Price' ng-model='form.lunchPrice'>
+			<input type="number" class="form-control" ng-disabled="!form.item.lunch || form.item.category.name == 'Dressing'" placeholder='Lunch Price' ng-model='form.item.lunchPrice'>
 		</div>
 	</div>
 	<div class='col-sm-2'>
@@ -35,12 +34,5 @@
 	</div>
 	<div class='col-sm-2'>
 		<button class='btn btn-warning' ng-click='form.clear()'>Reset</button>
-	</div>
-</div>
-<div class='row' ng-if='form.which === "add"'>
-	<div class='col-sm-2 checkbox'>
-		<label>
-			<input type='checkbox' ng-model='form.isCat' ng-change='form.isCatChange()'> Add a Category
-		</label>
 	</div>
 </div>
