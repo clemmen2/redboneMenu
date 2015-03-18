@@ -2,16 +2,16 @@ angular.module('appServices',[])
 .service('category',[function(){
 	var category = {};
 	var cat=[
-			{name:'Desserts', require: null, mainCat:{name:'Desserts', pos:'3'}},
-			{name:'Dressing', require: null, mainCat:{name:'Dressing', pos:'4'}},
-			{name:'Appetizers', require: null, mainCat:{name:'Appetizers', pos:'1'}},
-			{name:'Grits and Specialties', require: null, mainCat:{name:'Entrees', pos:'2'}},
-			{name:'Steaks', require: null, mainCat:{name:'Entrees', pos:'2'}},
-			{name:'Pasta and Rice', require: null, mainCat:{name:'Entrees', pos:'2'}},
-			{name:'Sandwiches', require: null, mainCat:{name:'Entrees', pos:'2'}},
-			{name:'Salads', require: 'Dressing', mainCat:{name:'Entrees', pos:'2'}}
-			
-		];
+		{name:'Desserts', require: null, mainCat:{name:'Desserts', pos:'3'}},
+		{name:'Dressing', require: null, mainCat:{name:'Dressing', pos:'4'}},
+		{name:'Appetizers', require: null, mainCat:{name:'Appetizers', pos:'1'}},
+		{name:'Grits and Specialties', require: null, mainCat:{name:'Entrees', pos:'2'}},
+		{name:'Steaks', require: null, mainCat:{name:'Entrees', pos:'2'}},
+		{name:'Pasta and Rice', require: null, mainCat:{name:'Entrees', pos:'2'}},
+		{name:'Sandwiches', require: null, mainCat:{name:'Entrees', pos:'2'}},
+		{name:'Salads', require: 'Dressing', mainCat:{name:'Entrees', pos:'2'}}
+		
+	];
 	var mainCat= [
 		{name:'Appetizers', pos:'1'},
 		{name:'Entrees',pos:'2'},
@@ -25,6 +25,29 @@ angular.module('appServices',[])
 		return mainCat;
 	};
 	return category;
+}])
+.service('item',['$rootScope', function($rootScope){
+	var itemFunc = {};
+	var item={};
+	var items = [];
+	itemFunc.getItemsDB = function(){
+		return items;
+	};
+	itemFunc.putItemDB = function(item){
+		items.push(item);
+	};
+	itemFunc.getToForm = function(){
+		return item;
+	};
+	itemFunc.toForm = function(id){
+		for (var i in items){
+			if (items[i].name == id){
+				item = items[i];
+				$rootScope.$broadcast('editItem');
+			}
+		}
+	};
+	return itemFunc;
 }])
 .factory('valForm',[function(){
 	return function(item){

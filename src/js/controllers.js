@@ -1,4 +1,4 @@
-angular.module('appControllers', ['appServices'])
+angular.module('appControllers', ['appServices','ngRoute'])
 
 	.controller('navManagement', [function(){
 		var nav =this;
@@ -30,7 +30,7 @@ angular.module('appControllers', ['appServices'])
 		
 	}])
 
-	.controller('formCtrl', ['category','$filter', 'valForm', function(cat,$filter, valForm){
+	.controller('formCtrl', ['$scope', 'category','item','$filter', 'valForm', function($scope,cat,item,$filter, valForm){
 		var that = this;
 		that.err = [];
 
@@ -50,7 +50,7 @@ angular.module('appControllers', ['appServices'])
 				for (var err in newItem.err)
 					that.err.push(newItem.err[err]);
 			}else{
-				console.log(newItem.item);
+				item.putItemDB(newItem.item);
 				clearForm();
 			}
 		};
@@ -59,9 +59,24 @@ angular.module('appControllers', ['appServices'])
 		};
 		that.edit = function(id) {
 			
-		};	
+		};
+		$scope.$on('editItem', function(){
+			that.item = item.getToForm();
+		});	
 	}])
 
-	.controller('treeCtrl', [function(){
-
+	.controller('treeCtrl', ['category','item','$filter','$routeParams', function(cat,item,$filter,$routeParams){
+		var me = this;
+		me.cats = $filter('orderBy')(cat.getCatDB(),'mainCat.pos');
+		me.items = item.getItemsDB();
+		me.catId = $routeParams.catId;
+		me.removeCat = function(id){
+			console.log('Removing category with id ' + id);
+		};
+		me.removeItem = function(id){
+			console.log('Removing item with id ' + id);
+		};
+		me.addToForm = function(id){
+			item.toForm(id);
+		};
 	}]);
