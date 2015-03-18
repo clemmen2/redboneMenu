@@ -107,7 +107,7 @@ module.exports = function(grunt) {
 			},
 			src: {
 				files: {
-					'dist/js/redbone.min.js': ['dist/js/redbone.js']
+					'dist/js/redbone.js': ['dist/js/redbone.js']
 				}
 			}
 		},
@@ -173,8 +173,13 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	//grunt.loadNpmTasks('grunt-contrib-watch');
 
+	if(process.env.DEV == 'true'){
+		grunt.registerTask('js', ['copy:angularjs', 'copy:angularRoutejs', 'copy:html5shiv', 'copy:bootstrapjs', 'copy:jqueryjs', 'jshint:src', 'concat:src', 'jshint:concat']);
+	}else{
+		grunt.registerTask('js', ['copy:angularjs', 'copy:angularRoutejs', 'copy:html5shiv', 'copy:bootstrapjs', 'copy:jqueryjs', 'jshint:src', 'concat:src', 'jshint:concat', 'uglify']);
+	}
+	
 	grunt.registerTask('css', ['copy:bootstrapcss', 'copy:bootstrapfonts', 'csslint', 'cssmin']);
-	grunt.registerTask('js', ['copy:angularjs', 'copy:angularRoutejs', 'copy:html5shiv', 'copy:bootstrapjs', 'copy:jqueryjs', 'jshint:src', 'concat:src', 'jshint:concat']);
 	grunt.registerTask('html', ['htmlmin']);
 	grunt.registerTask('dist', ['default', 'compress', 'clean:dist'])
 	grunt.registerTask('default', ['css', 'js', 'html']);
