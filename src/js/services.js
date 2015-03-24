@@ -1,51 +1,146 @@
 angular.module('appServices',[])
 .service('category',[function(){
 	var category = {};
-	var cat=[
-		{name:'Desserts', require: null, mainCat:{name:'Desserts', pos:'3'}},
-		{name:'Dressing', require: null, mainCat:{name:'Dressing', pos:'4'}},
-		{name:'Appetizers', require: null, mainCat:{name:'Appetizers', pos:'1'}},
-		{name:'Grits and Specialties', require: null, mainCat:{name:'Entrees', pos:'2'}},
-		{name:'Steaks', require: null, mainCat:{name:'Entrees', pos:'2'}},
-		{name:'Pasta and Rice', require: null, mainCat:{name:'Entrees', pos:'2'}},
-		{name:'Sandwiches', require: null, mainCat:{name:'Entrees', pos:'2'}},
-		{name:'Salads', require: 'Dressing', mainCat:{name:'Entrees', pos:'2'}}
-		
-	];
-	var mainCat= [
-		{name:'Appetizers', pos:'1'},
-		{name:'Entrees',pos:'2'},
-		{name:'Desserts',pos:'3'},
-		{name:'Dressing',pos:'4'}
-	];
-	category.getCatDB = function(){
-		return cat;
+	var fs = require('fs');
+	var parse = require('csv-parse');
+	var path = require('path');
+	var cats=[];
+	var mainCats= [];
+	category.getCatsDB = function(callback){
+		category.getMainCatsDB(function(mainCats){});
+		if(cats.length === 0){
+			rs = fs.createReadStream(path.resolve(process.cwd()+'/data/cat.csv'));
+			parser = parse({columns: true,delimiter: '\t'}, function(err,data){
+				cats = data;
+				cats = cats.map(function(cat){
+					cat.mainCat = mainCats.filter(function(mainCat){
+						if (mainCat._id == cat.mainCatId)
+							return true;
+						else
+							return false;
+					})[0];
+					return cat;
+				});
+				callback(cats);
+			});
+			rs.pipe(parser);
+		}else{
+			callback(cats);
+		}
 	};
-	category.getMainCatDB = function(){
-		return mainCat;
+	category.getMainCatsDB = function(callback){
+		if(mainCats.length === 0){
+			rs = fs.createReadStream(path.resolve(process.cwd()+'/data/mainCat.csv'));
+			parser = parse({columns: true,delimiter: '\t'}, function(err,data){
+				mainCats = data;
+				callback(mainCats);
+			});
+			rs.pipe(parser);
+		}else{
+			callback(mainCats);
+		}
 	};
 	return category;
 }])
-.service('item',['$rootScope', function($rootScope){
+.service('item',['$rootScope', 'category', function($rootScope, category){
+	var fs = require('fs');
+	var parse = require('csv-parse');
+	var path = require('path');
 	var itemFunc = {};
 	var item={};
 	var items = [];
-	itemFunc.getItemsDB = function(){
-		return items;
+	itemFunc.getItemsDB = function(callback){
+		category.getCatsDB(function(c){
+			var cats = c;
+			if(items.length === 0){
+				rs = fs.createReadStream(path.resolve(process.cwd()+'/data/menuItems.csv'));
+				parser = parse({columns: true,delimiter: '\t'}, function(err,data){
+					items = data;
+					items = items.map(function(it){
+						it.category = cats.filter(function(cat){
+							if (it.catId == cat._id)
+								return true;
+							else
+								return false;
+						})[0];
+						return it;
+					});
+					callback(items);
+				});
+				rs.pipe(parser);
+			}else{
+				callback(items);
+			}
+		});
 	};
 	itemFunc.putItemDB = function(item){
-		items.push(item);
+		itemFunc.getItemsDB(function(idc){
+			item._id = '0';
+			item._id = String(parseInt(items.reduce(function(prev,curr){
+				if (prev._id < curr._id)
+					return curr;
+				else
+					return prev;
+			})._id)+1);
+			if (item.lunchPrice === null)
+				item.lunchPrice = '';
+			if (item.price === null)
+				item.price = '';
+			itemString = item._id+'\t'+item.name+'\t'+item.price+'\t'+item.desc+'\t'+item.category._id+'\t'+item.lunchPrice+'\n';
+			fs.appendFile(path.resolve(process.cwd()+'/data/menuItems.csv'),itemString,function(err){});
+			items.push(item);
+		});
 	};
 	itemFunc.getToForm = function(){
 		return item;
 	};
 	itemFunc.toForm = function(id){
-		for (var i in items){
-			if (items[i].name == id){
-				item = items[i];
+		items.map(function(intItem){
+			if (intItem._id == id){
+				item = intItem;
 				$rootScope.$broadcast('editItem');
 			}
-		}
+		});
+	};
+	itemFunc.removeItem = function(id){
+		fs.readFile(path.resolve(process.cwd()+'/data/menuItems.csv'),{encoding:'utf8'},function(err,data){
+			var lines = data.split('\n');
+			var file = lines.filter(function(line){
+				var item = line.split('\t');
+				if(item[0] == id)
+					return false;
+				else
+					return true;
+			}).join('\n');
+			fs.writeFile(path.resolve(process.cwd()+'/data/menuItems.csv'),file,function(e){});
+		});
+		items = items.filter(function(item){
+			if (item._id == id)
+				return false;
+			else
+				return true;
+		});
+	};
+	itemFunc.editItem = function(intItem){
+		fs.readFile(path.resolve(process.cwd()+'/data/menuItems.csv'),{encoding:'utf8'},function(err,data){
+			var lines = data.split('\n');
+			var file = lines.map(function(line){
+				var item = line.split('\t');
+				if(item[0] == intItem._id)
+					itemString = intItem._id+'\t'+intItem.name+'\t'+intItem.price+'\t'+intItem.desc+'\t'+intItem.category._id+'\t'+intItem.lunchPrice;
+					
+				else
+					itemString = line;
+				return itemString;
+			}).join('\n');
+			fs.writeFile(path.resolve(process.cwd()+'/data/menuItems.csv'),file,function(e){});
+		});
+		items = items.map(function(item){
+			if (item._id == intItem._id)
+				return intItem;
+			else
+				return item;
+		});
 	};
 	return itemFunc;
 }])
@@ -65,7 +160,7 @@ angular.module('appServices',[])
 			createError('Please supply a vaild name for the item.');
 		}
 		if (item.category.name != 'Dressing'){
-			if (item.price === null){
+			if (item.price === ''){
 				createError('Please supply a price for the item.');
 			}else{
 				if(!numRegExp.test(item.price)){
@@ -78,7 +173,7 @@ angular.module('appServices',[])
 			if (item.desc === '')
 				createError('Please supply a description for the item.');
 			if (item.lunch !== false){
-				if (item.lunchPrice === null){
+				if (item.lunchPrice === ''){
 					createError('Please supply a lunch price for the item.');
 				}else if(!numRegExp.test(item.lunchPrice)){
 					createError('Please supply a valid lunch price for the item.');
@@ -88,10 +183,10 @@ angular.module('appServices',[])
 				}
 			}
 		}else{
-			item.price = null;
+			item.price = '';
 			item.desc = '';
 			item.lunch = false;
-			item.lunchPrice = null;
+			item.lunchPrice = '';
 		}
 		return {err: err, item: item};
 	};

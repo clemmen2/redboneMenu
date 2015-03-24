@@ -134,7 +134,9 @@ module.exports = function(grunt) {
 				{expand:true,cwd:'nwWin32/',src:['**'],dest:'.'},
 				{expand:true,cwd:'dist/',src:['**'],dest:'dist/'},
 				{expand:true,cwd:'.',src:['package.json','dog.png','LICENSE'],dest:'.'},
-				{expand:true,cwd:'node_modules/',src:['nedb/**'],dest:'node_modules/'}
+				{expand:true,cwd:'node_modules/',src:['nedb/**'],dest:'node_modules/'},
+				{expand:true,cwd:'node_modules/',src:['csv-parser/**'],dest:'node_modules/'},
+				{expand:true,cwd:'.',src:['data/**'],dest:'.'}
 				]
 			},
 			distLinux32: {
@@ -145,7 +147,9 @@ module.exports = function(grunt) {
 				{expand:true,cwd:'nwLinux32/',src:['**'],dest:'.'},
 				{expand:true,cwd:'dist/',src:['**'],dest:'dist/'},
 				{expand:true,cwd:'.',src:['package.json','dog.png','LICENSE'],dest:'.'},
-				{expand:true,cwd:'node_modules/',src:['nedb/**'],dest:'node_modules/'}
+				{expand:true,cwd:'node_modules/',src:['nedb/**'],dest:'node_modules/'},
+				{expand:true,cwd:'node_modules/',src:['csv-parser/**'],dest:'node_modules/'},
+				{expand:true,cwd:'.',src:['data/**'],dest:'.'}
 				]
 			},
 			distOsx32: {
@@ -156,7 +160,9 @@ module.exports = function(grunt) {
 				{expand:true,cwd:'nwOsx32/',src:['**'],dest:'.'},
 				{expand:true,cwd:'dist/',src:['**'],dest:'dist/'},
 				{expand:true,cwd:'.',src:['package.json','dog.png','LICENSE'],dest:'.'},
-				{expand:true,cwd:'node_modules/',src:['nedb/**'],dest:'node_modules/'}
+				{expand:true,cwd:'node_modules/',src:['nedb/**'],dest:'node_modules/'},
+				{expand:true,cwd:'node_modules/',src:['csv-parser/**'],dest:'node_modules/'},
+				{expand:true,cwd:'.',src:['data/**'],dest:'.'}
 				]
 			}
 		}
