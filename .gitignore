@@ -31,3 +31,4 @@ dist
 .lock-wscript
 redbone.sublime-project
 redbone.sublime-workspace
+nw*
