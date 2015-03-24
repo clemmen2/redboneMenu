@@ -31,4 +31,7 @@ dist
 .lock-wscript
 redbone.sublime-project
 redbone.sublime-workspace
-nw*
+nw
+*.zip
+*.tar.gz
+redbone*
