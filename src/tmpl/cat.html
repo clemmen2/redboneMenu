@@ -3,7 +3,7 @@
 		<div class='col-sm-3' ng-controller='treeCtrl as tree'>
 					<ul class="list-group">
 						<li class='list-group-item'><a href='#/edit'>Back</a></li>
-						<li class='list-group-item' ng-repeat='item in tree.items' ng-if='item.category.name == tree.catId'><a href='' ng-click='tree.addToForm(item.name)'>{{item.name}}</a><button class='close pull-right' ng-click='tree.removeItem(item.name)'>&times;</button></li>
+						<li class='list-group-item' ng-repeat='item in tree.items' ng-if='item.category._id == tree.catId'><a href='' ng-click='tree.addToForm(item._id)'>{{item.name}}</a><button class='close pull-right' ng-click='tree.removeItem(item._id)'>&times;</button></li>
 					</ul>
 		</div>
 		<div class='col-sm-9' ng-controller='formCtrl as form'>
