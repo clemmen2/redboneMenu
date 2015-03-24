@@ -136,6 +136,7 @@ module.exports = function(grunt) {
 				{expand:true,cwd:'.',src:['package.json','dog.png','LICENSE'],dest:'.'},
 				{expand:true,cwd:'node_modules/',src:['nedb/**'],dest:'node_modules/'},
 				{expand:true,cwd:'node_modules/',src:['csv-parser/**'],dest:'node_modules/'},
+				{expand:true,cwd:'node_modules/',src:['pdfkit/**'],dest:'node_modules/'},
 				{expand:true,cwd:'.',src:['data/**'],dest:'.'}
 				]
 			},
@@ -149,6 +150,7 @@ module.exports = function(grunt) {
 				{expand:true,cwd:'.',src:['package.json','dog.png','LICENSE'],dest:'.'},
 				{expand:true,cwd:'node_modules/',src:['nedb/**'],dest:'node_modules/'},
 				{expand:true,cwd:'node_modules/',src:['csv-parser/**'],dest:'node_modules/'},
+				{expand:true,cwd:'node_modules/',src:['pdfkit/**'],dest:'node_modules/'},
 				{expand:true,cwd:'.',src:['data/**'],dest:'.'}
 				]
 			},
@@ -162,6 +164,7 @@ module.exports = function(grunt) {
 				{expand:true,cwd:'.',src:['package.json','dog.png','LICENSE'],dest:'.'},
 				{expand:true,cwd:'node_modules/',src:['nedb/**'],dest:'node_modules/'},
 				{expand:true,cwd:'node_modules/',src:['csv-parser/**'],dest:'node_modules/'},
+				{expand:true,cwd:'node_modules/',src:['pdfkit/**'],dest:'node_modules/'},
 				{expand:true,cwd:'.',src:['data/**'],dest:'.'}
 				]
 			}
