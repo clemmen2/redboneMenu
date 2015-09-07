@@ -76,7 +76,7 @@ angular.module('appControllers', ['appServices','ngRoute'])
 		});	
 	}])
 
-	.controller('treeCtrl', ['category','item','$filter','$routeParams','$scope', function(cat,item,$filter,$routeParams,$scope){
+	.controller('treeCtrl', ['category','item','$filter','$routeParams','$scope','tree', function(cat,item,$filter,$routeParams,$scope,tree){
 		var me = this;
 		cat.getCatsDB(function(cats){
 			me.cats = $filter('orderBy')(cats,'mainCat.pos');
@@ -85,9 +85,6 @@ angular.module('appControllers', ['appServices','ngRoute'])
 			me.items = its;
 		});
 		me.catId = $routeParams.catId;
-		me.removeCat = function(id){
-			console.log('Removing category with id ' + id);
-		};
 		me.removeItem = function(id){
 			item.removeItem(id);
 			item.getItemsDB(function(items){
@@ -97,4 +94,21 @@ angular.module('appControllers', ['appServices','ngRoute'])
 		me.addToForm = function(id){
 			item.toForm(id);
 		};
-	}]);
+		me.addToTree = function(id){
+			tree.toAdd(id);
+		};
+	}])
+
+	.controller('addTree', ['$scope','tree','$filter', function($scope,tree,$filter){
+		var me = this;
+		tree.getItems(function(items){
+			me.items = items;
+		});
+		me.remove = function(id){
+			tree.removeItem(id);
+			tree.getItems(function(items){
+				me.items = items;
+			});
+		};
+	}])
+	;

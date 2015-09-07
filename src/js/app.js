@@ -14,6 +14,9 @@ angular.module('setMenuApp', ['ngRoute', 'appControllers'])
 			.when('/cat/:catId', {
 				templateUrl: 'tmpl/cat.html'
 			})
+			.when('/catAdd/:catId', {
+				templateUrl: 'tmpl/catadd.html'
+			})
 			.when('/', {
 				redirectTo: '/create'
 			});
