@@ -20,19 +20,19 @@ module.exports = function(grunt) {
 			angularjs: {
 				expand: true,
 				cwd: 'bower_components/angular/',
-				src: ['*.min.js'],
+				src: ['*.min.js*'],
 				dest: 'dist/js/'
 			},
 			angularRoutejs: {
 				expand: true,
 				cwd: 'bower_components/angular-route/',
-				src: ['*.min.js'],
+				src: ['*.min.js*'],
 				dest: 'dist/js/'
 			},
 			jqueryjs: {
 				expand: true,
 				cwd: 'bower_components/jquery/dist/',
-				src: ['*.min.js'],
+				src: ['*.min.js', '*.min.map'],
 				dest: 'dist/js/'
 			},
 			bootstrapjs: {

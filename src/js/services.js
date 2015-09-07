@@ -9,7 +9,7 @@ angular.module('appServices',[])
 	category.getCatsDB = function(callback){
 		category.getMainCatsDB(function(mainCats){});
 		if(cats.length === 0){
-			rs = fs.createReadStream(path.resolve(process.cwd()+'/data/cat.csv'));
+			rs = fs.createReadStream(path.resolve(process.cwd()+'/data/cat.txt'));
 			parser = parse({columns: true,delimiter: '\t'}, function(err,data){
 				cats = data;
 				cats = cats.map(function(cat){
@@ -30,7 +30,7 @@ angular.module('appServices',[])
 	};
 	category.getMainCatsDB = function(callback){
 		if(mainCats.length === 0){
-			rs = fs.createReadStream(path.resolve(process.cwd()+'/data/mainCat.csv'));
+			rs = fs.createReadStream(path.resolve(process.cwd()+'/data/mainCat.txt'));
 			parser = parse({columns: true,delimiter: '\t'}, function(err,data){
 				mainCats = data;
 				callback(mainCats);
@@ -53,7 +53,7 @@ angular.module('appServices',[])
 		category.getCatsDB(function(c){
 			var cats = c;
 			if(items.length === 0){
-				rs = fs.createReadStream(path.resolve(process.cwd()+'/data/menuItems.csv'));
+				rs = fs.createReadStream(path.resolve(process.cwd()+'/data/menuItems.txt'));
 				parser = parse({columns: true,delimiter: '\t'}, function(err,data){
 					items = data;
 					items = items.map(function(it){
@@ -87,7 +87,7 @@ angular.module('appServices',[])
 			if (item.price === null)
 				item.price = '';
 			itemString = item._id+'\t'+item.name+'\t'+item.price+'\t'+item.desc+'\t'+item.category._id+'\t'+item.lunchPrice+'\n';
-			fs.appendFile(path.resolve(process.cwd()+'/data/menuItems.csv'),itemString,function(err){});
+			fs.appendFile(path.resolve(process.cwd()+'/data/menuItems.txt'),itemString,function(err){});
 			items.push(item);
 		});
 	};
@@ -103,7 +103,7 @@ angular.module('appServices',[])
 		});
 	};
 	itemFunc.removeItem = function(id){
-		fs.readFile(path.resolve(process.cwd()+'/data/menuItems.csv'),{encoding:'utf8'},function(err,data){
+		fs.readFile(path.resolve(process.cwd()+'/data/menuItems.txt'),{encoding:'utf8'},function(err,data){
 			var lines = data.split('\n');
 			var file = lines.filter(function(line){
 				var item = line.split('\t');
@@ -112,7 +112,7 @@ angular.module('appServices',[])
 				else
 					return true;
 			}).join('\n');
-			fs.writeFile(path.resolve(process.cwd()+'/data/menuItems.csv'),file,function(e){});
+			fs.writeFile(path.resolve(process.cwd()+'/data/menuItems.txt'),file,function(e){});
 		});
 		items = items.filter(function(item){
 			if (item._id == id)
@@ -122,7 +122,7 @@ angular.module('appServices',[])
 		});
 	};
 	itemFunc.editItem = function(intItem){
-		fs.readFile(path.resolve(process.cwd()+'/data/menuItems.csv'),{encoding:'utf8'},function(err,data){
+		fs.readFile(path.resolve(process.cwd()+'/data/menuItems.txt'),{encoding:'utf8'},function(err,data){
 			var lines = data.split('\n');
 			var file = lines.map(function(line){
 				var item = line.split('\t');
@@ -133,7 +133,7 @@ angular.module('appServices',[])
 					itemString = line;
 				return itemString;
 			}).join('\n');
-			fs.writeFile(path.resolve(process.cwd()+'/data/menuItems.csv'),file,function(e){});
+			fs.writeFile(path.resolve(process.cwd()+'/data/menuItems.txt'),file,function(e){});
 		});
 		items = items.map(function(item){
 			if (item._id == intItem._id)
@@ -190,4 +190,48 @@ angular.module('appServices',[])
 		}
 		return {err: err, item: item};
 	};
-}]);
+}])
+.service('tree',['item','$rootScope', function(items,$rootScope){
+	var treeFunc = {};
+	var addedItems = [];
+	var addToList = function(id){
+		items.getItemsDB(function(itemList){
+			itemList.map(function(intItem){
+				if (intItem._id == id){
+					addedItems.push(intItem);
+				}
+			});
+		});
+	};
+	treeFunc.toAdd = function(id){
+		alreadyOnList = false;
+		addedItems.map(function(curItem){
+			if (curItem._id == id){
+				alreadyOnList = true;
+			}else{
+				alreadyOnList = false;
+			}
+		});
+		if (addedItems.length === 0){
+			addToList(id);
+		}else if(alreadyOnList){
+			console.log('Already on List');
+		}else{
+			addToList(id);
+		}
+	};
+	treeFunc.getItems = function(callback){
+		callback(addedItems);
+	};
+	treeFunc.removeItem = function(id){
+		addedItems = addedItems.filter(function(curItem){
+			if(curItem._id == id){
+				return false;
+			}else{
+				return true;
+			}
+		});
+	};
+	return treeFunc;
+}])
+;

@@ -2,7 +2,8 @@
 	<div class='row'>
 		<div class='col-sm-3' ng-controller='treeCtrl as tree'>
 					<ul class="list-group">
-						<li ng-repeat='cat in tree.cats' class='list-group-item'><a href='#/catAdd/{{cat._id}}'>{{cat.name}}</a></li>
+						<li class='list-group-item'><a href='#/create'>Back</a></li>
+						<li class='list-group-item' ng-repeat='item in tree.items' ng-if='item.category._id == tree.catId'><a href='' ng-click='tree.addToTree(item._id)'>{{item.name}}</a></li>
 					</ul>
 		</div>
 		<div class='col-sm-9' ng-controller='addTree as addTree'>
