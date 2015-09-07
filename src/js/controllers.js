@@ -110,5 +110,9 @@ angular.module('appControllers', ['appServices','ngRoute'])
 				me.items = items;
 			});
 		};
+		me.save = function(){
+			var toMenu = $filter('orderBy')(me.items,'category.mainCat.pos');
+			console.log(toMenu);
+		};
 	}])
 	;

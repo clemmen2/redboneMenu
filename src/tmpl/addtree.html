@@ -1,3 +1,8 @@
-	<ul class="list-group">
-		<li class='list-group-item' ng-repeat='item in addTree.items | orderBy : "category.mainCat.pos"'><a href=''>{{item.name}}</a><button class='close pull-right' ng-click='addTree.remove(item._id)'>&times;</button></li>
-	</ul>
+	<div class="row">
+		<ul class="list-group">
+			<li class='list-group-item' ng-repeat='item in addTree.items | orderBy : "category.mainCat.pos"'><a href=''>{{item.name}}</a><button class='close pull-right' ng-click='addTree.remove(item._id)'>&times;</button></li>
+		</ul>
+	</div>
+	<div class="row">
+	<button class='btn btn-success' ng-click='addTree.save()'>Save</button>
+	</div>
