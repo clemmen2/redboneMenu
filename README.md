@@ -2,6 +2,9 @@
 ##Install
 To install development environment run ```npm install```.
 
+##Running
+To run the program for testing run ```npm start```.
+
 ##Distributing
 To get the compressed files for distribution run ```grunt dist```.
 
