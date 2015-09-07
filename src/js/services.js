@@ -234,4 +234,41 @@ angular.module('appServices',[])
 	};
 	return treeFunc;
 }])
+.factory('makePdf',[function(){
+	var fs = require('fs');
+	var path = require('path');
+	var userdir = require('userdir');
+	var dateformat = require('dateformat');
+	var pdfkit = require('pdfkit');
+	var doc = new pdfkit();
+	return function(menuItems){
+		var now = new Date();
+		var filePath = path.join(userdir,'/Desktop','RedboneSetMenus',dateformat(now, "mmm_dd_yyyy"),dateformat(now, "hh_MM")+'.pdf'); 
+		doc.info = {
+			"Title": "RedboneSetMenu_"+dateformat(now, "hh_MM"),
+			"Author": "Red Bone"
+		};
+		var createPdf = function(){
+			fs.exists(path.resolve(path.parse(filePath).dir, ".."),function(exists){
+				if (!exists){
+					fs.mkdirSync(path.resolve(path.parse(filePath).dir, ".."));
+					createPdf();
+				}else{
+					fs.exists(path.parse(filePath).dir,function(exists){
+						if (!exists){
+							fs.mkdirSync(path.parse(filePath).dir);
+							createPdf();
+						}else{
+							doc.pipe(fs.createWriteStream(filePath));
+							doc.fontSize(16)
+								.text('Testing if this works!!!');
+							doc.end();
+						}
+					});
+				}
+			});	
+		};
+		createPdf();
+	};
+}])
 ;
