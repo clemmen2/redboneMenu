@@ -4,5 +4,6 @@
 		</ul>
 	</div>
 	<div class="row">
-	<button class='btn btn-success' ng-click='addTree.save()'>Save</button>
+		<button class='btn btn-success' ng-click='addTree.save()'>Save</button>
+		<button class='btn' ng-class="{'btn-success': addTree.price,'btn-danger': !addTree.price}" ng-click='addTree.priceTog()'>Display Price</button>
 	</div>

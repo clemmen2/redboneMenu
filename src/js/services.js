@@ -192,7 +192,7 @@ angular.module('appServices',[])
 		return {err: err, item: item};
 	};
 }])
-.service('tree',['item','$rootScope', function(items,$rootScope){
+.service('tree',['item', function(items){
 	var treeFunc = {};
 	var addedItems = [];
 	var addToList = function(id){
@@ -235,14 +235,14 @@ angular.module('appServices',[])
 	};
 	return treeFunc;
 }])
-.factory('makePdf',[function(){
+.factory('makePdf',['$rootScope', function($rootScope){
 	var fs = require('fs');
 	var path = require('path');
 	var userdir = require('userdir');
 	var dateformat = require('dateformat');
+	var open = require('open');
 	var pdfkit = require('pdfkit');
-	var mainCatIdsUsed = [];
-	return function(menuItems){
+	return function(menuItems, usePrice){
 		var now = new Date();
 		var filePath = path.join(userdir,'/Desktop','RedboneSetMenus',dateformat(now, "mmm_dd_yyyy"),dateformat(now, "hh_MM")+'.pdf'); 
 		var createPdf = function(){
@@ -267,6 +267,7 @@ angular.module('appServices',[])
 								.text("Red Bone Alley",{align:'center'})
 								.fontSize(12)
 								.moveDown();
+							var mainCatIdsUsed = [];
 							menuItems.map(function(curItem){
 								tempCat = mainCatIdsUsed.filter(function(curCat){
 									if (curItem.category.mainCat._id == curCat._id) {
@@ -275,26 +276,49 @@ angular.module('appServices',[])
 										return false;
 									}
 								});
+								console.log(tempCat);
 								if (tempCat.length !== 0){
-									doc.fontSize(16)
-										.text(curItem.name,{align:'center'})
-										.fontSize(12)
-										.text(curItem.desc,{align:'center'})
-										.moveDown();
+									if (usePrice){
+										doc.fontSize(16)
+											.text(curItem.name+'    '+curItem.price,{align:'center'})
+											.fontSize(12)
+											.text(curItem.desc,{align:'center'})
+											.moveDown();
+									}else{
+										doc.fontSize(16)
+											.text(curItem.name,{align:'center'})
+											.fontSize(12)
+											.text(curItem.desc,{align:'center'})
+											.moveDown();
+									}
 								}else{
-									doc.fontSize(20)
-										.text(curItem.category.mainCat.name,{align:'center'})
-										.fontSize(12)
-										.moveDown();
-									doc.fontSize(16)
-										.text(curItem.name,{align:'center'})
-										.fontSize(12)
-										.text(curItem.desc,{align:'center'})
-										.moveDown();
-									mainCatIdsUsed.push(curItem.category.mainCat);
+									if(usePrice){
+										doc.fontSize(20)
+											.text(curItem.category.mainCat.name,{align:'center'})
+											.fontSize(12)
+											.moveDown();
+										doc.fontSize(16)
+											.text(curItem.name+'    '+curItem.price,{align:'center'})
+											.fontSize(12)
+											.text(curItem.desc,{align:'center'})
+											.moveDown();
+										mainCatIdsUsed.push(curItem.category.mainCat);
+									}else{
+										doc.fontSize(20)
+											.text(curItem.category.mainCat.name,{align:'center'})
+											.fontSize(12)
+											.moveDown();
+										doc.fontSize(16)
+											.text(curItem.name,{align:'center'})
+											.fontSize(12)
+											.text(curItem.desc,{align:'center'})
+											.moveDown();
+										mainCatIdsUsed.push(curItem.category.mainCat);
+									}
 								}
 							});
 							doc.end();
+							open(filePath);
 						}
 					});
 				}
