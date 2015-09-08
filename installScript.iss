@@ -5,16 +5,18 @@
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{B673C69B-B567-4216-BA02-1E9167260A28}
+AppId={{AF77644E-77CC-4043-95A0-5A77E5629D27}
 AppName=Red Bone Menu
 AppVersion=1.0
 ;AppVerName=Red Bone Menu 1.0
 AppPublisher=Will Dixon
-AppPublisherURL=http://www.redbonealley.com
-AppSupportURL=http://www.redbonealley.com
-AppUpdatesURL=http://www.redbonealley.com
+AppPublisherURL=http://www.redbonealley.com/
+AppSupportURL=http://www.redbonealley.com/
+AppUpdatesURL=http://www.redbonealley.com/
 DefaultDirName={pf}\Red Bone Menu
 DefaultGroupName=Red Bone Menu
+AllowNoIcons=yes
+LicenseFile=C:\Users\Will\Documents\GitHub\redboneMenu\redboneWin32\LICENSE
 OutputBaseFilename=setup
 SetupIconFile=C:\Users\Will\Documents\GitHub\redboneMenu\dog.ico
 Compression=lzma
@@ -28,16 +30,16 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 0,6.1
 
 [Files]
-Source: "C:\Users\Will\Documents\GitHub\redboneMenu\redboneWin32\nw.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\Will\Documents\GitHub\redboneMenu\redboneWin32\Red Bone Menu.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\Will\Documents\GitHub\redboneMenu\redboneWin32\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
-Name: "{group}\Red Bone Menu"; Filename: "{app}\nw.exe"
+Name: "{group}\Red Bone Menu"; Filename: "{app}\Red Bone Menu.exe"
 Name: "{group}\{cm:UninstallProgram,Red Bone Menu}"; Filename: "{uninstallexe}"
-Name: "{commondesktop}\Red Bone Menu"; Filename: "{app}\nw.exe"; Tasks: desktopicon
-Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\Red Bone Menu"; Filename: "{app}\nw.exe"; Tasks: quicklaunchicon
+Name: "{commondesktop}\Red Bone Menu"; Filename: "{app}\Red Bone Menu.exe"; Tasks: desktopicon
+Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\Red Bone Menu"; Filename: "{app}\Red Bone Menu.exe"; Tasks: quicklaunchicon
 
 [Run]
-Filename: "{app}\nw.exe"; Description: "{cm:LaunchProgram,Red Bone Menu}"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\Red Bone Menu.exe"; Description: "{cm:LaunchProgram,Red Bone Menu}"; Flags: nowait postinstall skipifsilent
 
