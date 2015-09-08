@@ -42,9 +42,9 @@
     "toolbar": false,
     "frame": false,
     "width": 1000,
-    "height": 450,
+    "height": 500,
     "min_width": 1000,
-    "min_height": 450
+    "min_height": 500
   },
   "webkit": {
     "plugin": true

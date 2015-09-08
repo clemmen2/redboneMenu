@@ -5,7 +5,7 @@
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{AF77644E-77CC-4043-95A0-5A77E5629D27}
+AppId={{853B4B7F-BD69-45C3-ACA6-A295BB0D7155}
 AppName=Red Bone Menu
 AppVersion=1.0
 ;AppVerName=Red Bone Menu 1.0
@@ -30,16 +30,17 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 0,6.1
 
 [Files]
-Source: "C:\Users\Will\Documents\GitHub\redboneMenu\redboneWin32\Red Bone Menu.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\Will\Documents\GitHub\redboneMenu\redboneWin32\Red Bone Alley.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\Will\Documents\GitHub\redboneMenu\redboneWin32\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Users\Will\Documents\GitHub\redboneMenu\redboneWin32\data\*"; DestDir: "{app}\data"; Flags: ignoreversion; Permissions: everyone-modify
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
-Name: "{group}\Red Bone Menu"; Filename: "{app}\Red Bone Menu.exe"
+Name: "{group}\Red Bone Menu"; Filename: "{app}\Red Bone Alley.exe"
 Name: "{group}\{cm:UninstallProgram,Red Bone Menu}"; Filename: "{uninstallexe}"
-Name: "{commondesktop}\Red Bone Menu"; Filename: "{app}\Red Bone Menu.exe"; Tasks: desktopicon
-Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\Red Bone Menu"; Filename: "{app}\Red Bone Menu.exe"; Tasks: quicklaunchicon
+Name: "{commondesktop}\Red Bone Menu"; Filename: "{app}\Red Bone Alley.exe"; Tasks: desktopicon
+Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\Red Bone Menu"; Filename: "{app}\Red Bone Alley.exe"; Tasks: quicklaunchicon
 
 [Run]
-Filename: "{app}\Red Bone Menu.exe"; Description: "{cm:LaunchProgram,Red Bone Menu}"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\Red Bone Alley.exe"; Description: "{cm:LaunchProgram,Red Bone Menu}"; Flags: nowait postinstall skipifsilent
 
