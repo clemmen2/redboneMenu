@@ -101,9 +101,16 @@ angular.module('appControllers', ['appServices','ngRoute'])
 
 	.controller('addTree', ['$scope','tree','$filter', 'makePdf', function($scope,tree,$filter,makePdf){
 		var me = this;
+		me.price = true;
 		tree.getItems(function(items){
 			me.items = items;
 		});
+		me.priceTog = function(){
+			if (me.price === true)
+				me.price = false;
+			else
+				me.price = true;
+		};
 		me.remove = function(id){
 			tree.removeItem(id);
 			tree.getItems(function(items){
@@ -112,7 +119,7 @@ angular.module('appControllers', ['appServices','ngRoute'])
 		};
 		me.save = function(){
 			var toMenu = $filter('orderBy')(me.items,'category.mainCat.pos');
-			makePdf(toMenu);
+			makePdf(toMenu, me.price);
 		};
 	}])
 	;
