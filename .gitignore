@@ -29,8 +29,8 @@ dist
 
 # Users Environment Variables
 .lock-wscript
-redbone.sublime-project
-redbone.sublime-workspace
+*.sublime-project
+*.sublime-workspace
 nw
 *.zip
 *.tar.gz

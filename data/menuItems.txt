@@ -1,8 +1,54 @@
 _id	name	price	desc	catId	lunchPrice
-1	Bermuda Triangles	9	Yummy	1	
-2	Shrimp and Grits	15	Very Delicious food	2	9
-3	Marinated Ribeye	20	Yummy	3	
-4	Chicken Leo	15	Yummy	4	9
-5	Chicken Melt	10	Even Better	5	
-6	Southern Fried Chicken Salad	10	Yummy	6	7
+1	Bermuda Triangles	8.5	Baked, Light Puff Pastry with Chicken, Bacon and Cream Cheese	1	
+2	Shrimp and Grits	16	Spicy Fried Shrimp, Seared Ham, Mushrooms and Green Onions	2	9
+3	Marinated, Grilled Rib Eye	20	Citrus and Soy Marinated, Flash Grilled, Caramelized Onions	3	
+4	Chicken Leo	17	Boneless Fried Chicken, Seared Ham, and Mozzarella over Fettuccine Alfredo	4	9
+5	Grilled Chipotle Chicken Melt	10	Monterey Jack Cheese, Griddled Sweet Onions and Chipotle Aioli	5	
+6	Southern or Buffalo Chicken Salad	10.5	Cheddar and Jack Cheeses, Smoked Bacon, Tomatoes, and Green Onions. Grilled or Traditional Fried	6	7
 7	Pound Cake	7	Yummy	7	
+8	Crisp Sweet Chili Shrimp	9.5	with House Pickled Red Onions	1	
+9	Wood Smoked Chicken Wings	9.5	Soy Marinated, Ranch and Celery to Dip	1	
+10	Mexican Pizza Dip	10	Baked Hamburger, Pepperoni, Sausage, Tomato Salsa, 3 Cheeses and Nacho Chips	1	
+11	Fried Green Tomatoes and Blackened Shrimp	9.5	Red Bone’s “Nawlin’s” Remoulade Sauce	1	
+12	Appetizer Combo	11	Smoked Wings, Hand Breaded Mozzarella and Buffalo Chicken	1	
+13	Heated Pita Chips	8	Pimento Cheese, Creamy Ranch and Thai Sweet Chili Sauce	1	
+14	Boneless Fried Pickles	7.5	Tabasco Battered, Celery and Bleu Cheese	1	
+15	BBQ Smoked Brisket Nachos	9.5	Jalapeno Jack Cheese, Tomatoes, Sour Cream and Green Onions	1	
+16	Chopped Chicken Salad and Fresh Fruit	10	Low Fat Mayo, Local Pecans and a Touch of Honey	6	
+17	Red Bone Salad	12	Grilled Chicken and Shrimp, Garden Vegs, Mozzarella and Eggs	6	
+18	Crisp Romaine and Pasta Caesar	8	Grilled Cheese Croutons, Small Tomatoes, Egg Slices and Parmesan. Add Grilled Chicken for 4 dollars	6	
+19	Sweet N Spicy Shrimp Salad	12	Local Spinach, Mushrooms, Tomatoes, Eggs, Tabasco Fried Onions, Hot Bacon Vinaigrette	6	
+20	Grilled Salmon with Artisanal Greens	12.5	Caramelized Onions, Tomatoes, Eggs and Balsamic Honey Mustard Vinaigrette	6	
+21	Red Bone Ranch			8	
+22	Creamy Bleu Cheese			8	
+23	Thousand Island			8	
+24	Balsamic Honey Mustard			8	
+25	Hot Bacon			8	
+26	Sweet Vidalia Onion			8	
+27	Roasted Tomato			8	
+28	Classic Caesar			8	
+29	Italian Parmesan			8	
+30	Carolina Honey Mustard			8	
+31	Parmesan Green Peppercorn			8	
+32	Blackened Salmon with Pimento Grits	20	Over Spicy Cheese Grits	2	
+33	Chicken Pontalba	16	Spiced Chicken and Potatoes, Local Sausage, Griddled Mushrooms and Onions	2	
+34	Blackened Shrimp	15	Warm Corn Bread, Tomato Bacon Jam and Black Eye Pea Vinaigrette	2	
+35	Grilled Sweet Tea Marinated Pork Chop	16	Cheddar Bacon Mashed Potatoes and Succotash	2	
+36	Southern Fried or Grilled Chicken Planks	11	Potato Chips or Fries and Dipping Sauce of your Pick: Traditional Southern, Buffalo Style, Jamaican Jerk or Sweet Thai Chili	2	
+37	Pan Seared Bronzed Chicken Breast	11	Heart Healthy, Seasonal Vegetable Medley	2	
+38	Sweet Blude Crab Cakes	17.5	Jumbo Lump Crab, Bleu Cheese Bacon Slaw, Tartar and Fries	2	
+39	BBQ Grilled Chicken	13	Seared Ham, Bubbly Cheese, Vinegar Hot Slaw and Brabant Potatoes	2	
+40	Mixed Grill	22	Grilled Beef Tenderloin, Select Shrimp, Teriyaki Chicken, Aromatic Rice, Sugar Peas and House Tossed or Caesar Salad	2	
+41	Southern Fried Catfish	15	Vinegar Hot Slaw and Brabant Potatoes	2	
+42	Darlington County Shrimp Risotto	17	Darlington County Aromatic Rice, Rich Stock, Parmesan, White Wine, Fresh Herbs and Trinity Vegetables	4	
+43	Fettuccine Mosaic	16	Grilled Chicken and Shrimp tossed with Fettuccine Alfredo	4	
+44	Vegetarian Pasta Crudo	12	Fresh Herbs, Small Tomatoes, Roasted Garlic and Olive Oil, (Freshly Shaved Pecorino Romano Cheese optional)	4	
+45	Grilled Chicken Mac N Cheese	16	5 Cheese Bake, House Smoked Bacon Chunks, Penne Pasta	4	
+46	Black Angus Strip Steak	25	Thick Cut Onion Rings	3	
+47	Red Bone Bar Steak	17	3 Day Simmer Sauce	3	
+48	Throwback Hamburger Steak	15	Griddled Mushrooms and Onions	3	
+49	Triple Cheese Burger Sliders	11	Pimento, Sharp and White Cheddar Cheeses	5	
+50	Red Bone Hot Club	10	Grilled Chicken, BLT, Honey mustard, Mozzarella Cheese, Grilled Wheat Bread	5	
+51	BBQ Smoked Brisket Sandwich	11.5	House Pickled Red Onions, Toasted Brioche Bun	5	
+52	Pimento Cheese Burger	10	Fried Green Tomato, Pickled Red Onions	5	
+53	Smoked Bacon Swiss Cheese Burger	10	Caramelized Onions, Lettuce and Tomatoes	5	

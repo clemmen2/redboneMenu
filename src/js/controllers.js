@@ -99,7 +99,7 @@ angular.module('appControllers', ['appServices','ngRoute'])
 		};
 	}])
 
-	.controller('addTree', ['$scope','tree','$filter', function($scope,tree,$filter){
+	.controller('addTree', ['$scope','tree','$filter', 'makePdf', function($scope,tree,$filter,makePdf){
 		var me = this;
 		tree.getItems(function(items){
 			me.items = items;
@@ -109,6 +109,10 @@ angular.module('appControllers', ['appServices','ngRoute'])
 			tree.getItems(function(items){
 				me.items = items;
 			});
+		};
+		me.save = function(){
+			var toMenu = $filter('orderBy')(me.items,'category.mainCat.pos');
+			makePdf(toMenu);
 		};
 	}])
 	;

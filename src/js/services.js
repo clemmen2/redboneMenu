@@ -77,16 +77,17 @@ angular.module('appServices',[])
 		itemFunc.getItemsDB(function(idc){
 			item._id = '0';
 			item._id = String(parseInt(items.reduce(function(prev,curr){
-				if (prev._id < curr._id)
+				if (parseInt(prev._id) < parseInt(curr._id)){
 					return curr;
-				else
+				}else{
 					return prev;
+				}
 			})._id)+1);
 			if (item.lunchPrice === null)
 				item.lunchPrice = '';
 			if (item.price === null)
 				item.price = '';
-			itemString = item._id+'\t'+item.name+'\t'+item.price+'\t'+item.desc+'\t'+item.category._id+'\t'+item.lunchPrice+'\n';
+			itemString = item._id+'\t'+item.name+'\t'+item.price+'\t'+item.desc+'\t'+item.category._id+'\t'+item.lunchPrice+'\r\n';
 			fs.appendFile(path.resolve(process.cwd()+'/data/menuItems.txt'),itemString,function(err){});
 			items.push(item);
 		});
@@ -104,14 +105,14 @@ angular.module('appServices',[])
 	};
 	itemFunc.removeItem = function(id){
 		fs.readFile(path.resolve(process.cwd()+'/data/menuItems.txt'),{encoding:'utf8'},function(err,data){
-			var lines = data.split('\n');
+			var lines = data.split('\r\n');
 			var file = lines.filter(function(line){
 				var item = line.split('\t');
 				if(item[0] == id)
 					return false;
 				else
 					return true;
-			}).join('\n');
+			}).join('\r\n');
 			fs.writeFile(path.resolve(process.cwd()+'/data/menuItems.txt'),file,function(e){});
 		});
 		items = items.filter(function(item){
@@ -123,7 +124,7 @@ angular.module('appServices',[])
 	};
 	itemFunc.editItem = function(intItem){
 		fs.readFile(path.resolve(process.cwd()+'/data/menuItems.txt'),{encoding:'utf8'},function(err,data){
-			var lines = data.split('\n');
+			var lines = data.split('\r\n');
 			var file = lines.map(function(line){
 				var item = line.split('\t');
 				if(item[0] == intItem._id)
@@ -132,7 +133,7 @@ angular.module('appServices',[])
 				else
 					itemString = line;
 				return itemString;
-			}).join('\n');
+			}).join('\r\n');
 			fs.writeFile(path.resolve(process.cwd()+'/data/menuItems.txt'),file,function(e){});
 		});
 		items = items.map(function(item){
@@ -233,5 +234,73 @@ angular.module('appServices',[])
 		});
 	};
 	return treeFunc;
+}])
+.factory('makePdf',[function(){
+	var fs = require('fs');
+	var path = require('path');
+	var userdir = require('userdir');
+	var dateformat = require('dateformat');
+	var pdfkit = require('pdfkit');
+	var mainCatIdsUsed = [];
+	return function(menuItems){
+		var now = new Date();
+		var filePath = path.join(userdir,'/Desktop','RedboneSetMenus',dateformat(now, "mmm_dd_yyyy"),dateformat(now, "hh_MM")+'.pdf'); 
+		var createPdf = function(){
+			var doc = new pdfkit();
+			doc.info = {
+				"Title": "RedboneSetMenu_"+dateformat(now, "hh_MM"),
+				"Author": "Red Bone"
+			};
+			fs.exists(path.resolve(path.parse(filePath).dir, ".."),function(exists){
+				if (!exists){
+					fs.mkdirSync(path.resolve(path.parse(filePath).dir, ".."));
+					createPdf();
+				}else{
+					fs.exists(path.parse(filePath).dir,function(exists){
+						if (!exists){
+							fs.mkdirSync(path.parse(filePath).dir);
+							createPdf();
+						}else{
+							var writeStream = fs.createWriteStream(filePath);
+							doc.pipe(writeStream);
+							doc.fontSize(25)
+								.text("Red Bone Alley",{align:'center'})
+								.fontSize(12)
+								.moveDown();
+							menuItems.map(function(curItem){
+								tempCat = mainCatIdsUsed.filter(function(curCat){
+									if (curItem.category.mainCat._id == curCat._id) {
+										return true;
+									}else{
+										return false;
+									}
+								});
+								if (tempCat.length !== 0){
+									doc.fontSize(16)
+										.text(curItem.name,{align:'center'})
+										.fontSize(12)
+										.text(curItem.desc,{align:'center'})
+										.moveDown();
+								}else{
+									doc.fontSize(20)
+										.text(curItem.category.mainCat.name,{align:'center'})
+										.fontSize(12)
+										.moveDown();
+									doc.fontSize(16)
+										.text(curItem.name,{align:'center'})
+										.fontSize(12)
+										.text(curItem.desc,{align:'center'})
+										.moveDown();
+									mainCatIdsUsed.push(curItem.category.mainCat);
+								}
+							});
+							doc.end();
+						}
+					});
+				}
+			});	
+		};
+		createPdf();
+	};
 }])
 ;
