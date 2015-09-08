@@ -22,5 +22,5 @@ angular.module('setMenuApp', ['ngRoute', 'appControllers'])
 			});
 	}])
 	.run(['$rootScope', function($rootScope) {
-		$rootScope.title='Redbone Set Menu';
+		$rootScope.title='Red Bone Menu';
 	}]);

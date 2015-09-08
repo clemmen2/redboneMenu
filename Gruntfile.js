@@ -2,8 +2,8 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>\n' +
-		'* <%= pkg.homepage %>/\n' +
-		'* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>; Licensed <%= pkg.license %> */',
+			'* <%= pkg.homepage %>/\n' +
+			'* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>; Licensed <%= pkg.license %> */',
 		copy: {
 			bootstrapcss: {
 				expand: true,
@@ -64,7 +64,8 @@ module.exports = function(grunt) {
 			dist: {
 				options: {
 					removeComments: true,
-					collapseWhitespace: true
+					collapseWhitespace: true,
+					banner: '<%= banner %>'
 				},
 				files: [
 					{
@@ -104,7 +105,8 @@ module.exports = function(grunt) {
 		},
 		uglify:{
 			options: {
-				mangle:false
+				mangle:false,
+				banner: '<%= banner %>'
 			},
 			src: {
 				files: {
@@ -121,6 +123,9 @@ module.exports = function(grunt) {
 		},
 		cssmin:{
 			src: {
+				options: {
+					banner: '<%= banner %>'
+				},
 				files: {
 					'dist/css/style.min.css': ['src/css/style.css']
 				}
@@ -132,7 +137,7 @@ module.exports = function(grunt) {
 					archive:'redboneWin32.zip'
 				},
 				files:[
-				{expand:true,cwd:'nw/nwjs-v0.12.0-win-ia32',src:['**'],dest:'.'},
+				{expand:true,cwd:'nw/nwjs-v0.12.3-win-ia32',src:['**'],dest:'.'},
 				{expand:true,cwd:'dist/',src:['**'],dest:'dist/'},
 				{expand:true,cwd:'.',src:['package.json','dog.png','LICENSE'],dest:'.'},
 				{expand:true,cwd:'node_modules/',src:['dateformat/**'],dest:'node_modules/'},
@@ -148,7 +153,7 @@ module.exports = function(grunt) {
 					archive:'redboneLinux32.tar.gz'
 				},
 				files:[
-				{expand:true,cwd:'nw/nwjs-v0.12.0-linux-ia32',src:['**'],dest:'.'},
+				{expand:true,cwd:'nw/nwjs-v0.12.3-linux-ia32',src:['**'],dest:'.'},
 				{expand:true,cwd:'dist/',src:['**'],dest:'dist/'},
 				{expand:true,cwd:'.',src:['package.json','dog.png','LICENSE'],dest:'.'},
 				{expand:true,cwd:'node_modules/',src:['dateformat/**'],dest:'node_modules/'},
@@ -164,7 +169,7 @@ module.exports = function(grunt) {
 					archive:'redboneOsx32.zip'
 				},
 				files:[
-				{expand:true,cwd:'nw/nwjs-v0.12.0-osx-ia32',src:['**'],dest:'.'},
+				{expand:true,cwd:'nw/nwjs-v0.12.3-osx-ia32',src:['**'],dest:'.'},
 				{expand:true,cwd:'dist/',src:['**'],dest:'dist/'},
 				{expand:true,cwd:'.',src:['package.json','dog.png','LICENSE'],dest:'.'},
 				{expand:true,cwd:'node_modules/',src:['dateformat/**'],dest:'node_modules/'},
@@ -180,7 +185,7 @@ module.exports = function(grunt) {
 					archive:'redboneWin64.zip'
 				},
 				files:[
-				{expand:true,cwd:'nw/nwjs-v0.12.0-win-x64',src:['**'],dest:'.'},
+				{expand:true,cwd:'nw/nwjs-v0.12.3-win-x64',src:['**'],dest:'.'},
 				{expand:true,cwd:'dist/',src:['**'],dest:'dist/'},
 				{expand:true,cwd:'.',src:['package.json','dog.png','LICENSE'],dest:'.'},
 				{expand:true,cwd:'node_modules/',src:['dateformat/**'],dest:'node_modules/'},
@@ -196,7 +201,7 @@ module.exports = function(grunt) {
 					archive:'redboneLinux64.tar.gz'
 				},
 				files:[
-				{expand:true,cwd:'nw/nwjs-v0.12.0-linux-x64',src:['**'],dest:'.'},
+				{expand:true,cwd:'nw/nwjs-v0.12.3-linux-x64',src:['**'],dest:'.'},
 				{expand:true,cwd:'dist/',src:['**'],dest:'dist/'},
 				{expand:true,cwd:'.',src:['package.json','dog.png','LICENSE'],dest:'.'},
 				{expand:true,cwd:'node_modules/',src:['dateformat/**'],dest:'node_modules/'},
@@ -212,7 +217,7 @@ module.exports = function(grunt) {
 					archive:'redboneOsx64.zip'
 				},
 				files:[
-				{expand:true,cwd:'nw/nwjs-v0.12.0-osx-x64',src:['**'],dest:'.'},
+				{expand:true,cwd:'nw/nwjs-v0.12.3-osx-x64',src:['**'],dest:'.'},
 				{expand:true,cwd:'dist/',src:['**'],dest:'dist/'},
 				{expand:true,cwd:'.',src:['package.json','dog.png','LICENSE'],dest:'.'},
 				{expand:true,cwd:'node_modules/',src:['dateformat/**'],dest:'node_modules/'},
@@ -227,32 +232,32 @@ module.exports = function(grunt) {
 		wget: {
 			win32:{
 				files:{
-					'nw/win32.zip': 'http://dl.nwjs.io/v0.12.0/nwjs-v0.12.0-win-ia32.zip'
+					'nw/win32.zip': 'http://dl.nwjs.io/v0.12.3/nwjs-v0.12.3-win-ia32.zip'
 				}
 			},
 			linux32:{
 				files:{
-					'nw/linux32.tar.gz': 'http://dl.nwjs.io/v0.12.0/nwjs-v0.12.0-linux-ia32.tar.gz'
+					'nw/linux32.tar.gz': 'http://dl.nwjs.io/v0.12.3/nwjs-v0.12.3-linux-ia32.tar.gz'
 				}
 			},
 			osx32:{
 				files:{
-					'nw/osx32.zip': 'http://dl.nwjs.io/v0.12.0/nwjs-v0.12.0-osx-ia32.zip'
+					'nw/osx32.zip': 'http://dl.nwjs.io/v0.12.3/nwjs-v0.12.3-osx-ia32.zip'
 				}
 			},
 			win64:{
 				files:{
-					'nw/win64.zip': 'http://dl.nwjs.io/v0.12.0/nwjs-v0.12.0-win-x64.zip'
+					'nw/win64.zip': 'http://dl.nwjs.io/v0.12.3/nwjs-v0.12.3-win-x64.zip'
 				}
 			},
 			linux64:{
 				files:{
-					'nw/linux64.tar.gz': 'http://dl.nwjs.io/v0.12.0/nwjs-v0.12.0-linux-x64.tar.gz'
+					'nw/linux64.tar.gz': 'http://dl.nwjs.io/v0.12.3/nwjs-v0.12.3-linux-x64.tar.gz'
 				}
 			},
 			osx64:{
 				files:{
-					'nw/osx64.zip': 'http://dl.nwjs.io/v0.12.0/nwjs-v0.12.0-osx-x64.zip'
+					'nw/osx64.zip': 'http://dl.nwjs.io/v0.12.3/nwjs-v0.12.3-osx-x64.zip'
 				}
 			}
 		},

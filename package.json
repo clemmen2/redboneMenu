@@ -1,5 +1,5 @@
 {
-  "name": "redboneMenu",
+  "name": "RedBoneMenu",
   "version": "1.0.0",
   "description": "Creates a Set Menu for Redbone Reservations",
   "main": "dist/index.html",
@@ -13,7 +13,7 @@
     "url": "https://github.com/clemmen2/redboneMenu"
   },
   "author": "Will Dixon",
-  "license": "MIT",
+  "license": "GNU GENERAL PUBLIC LICENSE V3",
   "bugs": {
     "url": "https://github.com/clemmen2/redboneMenu/issues"
   },
