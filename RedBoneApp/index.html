@@ -5,9 +5,11 @@
 		<title>Redbone Alley Set Menu</title>
 		<meta name="description" content="Redbone Alley Set Menu">
 		<meta name="author" content="Will Dixon">
+        <!-- build:css styles/frameworks.css -->
 		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
 		<link rel="stylesheet" href="css/style.css">
+        <!-- endbuild -->
 		<!--[if lt IE 9]>
 			<script src="js/html5shiv.min.js"></script>
 		<![endif]-->
@@ -41,10 +43,12 @@
 		<div class="container">
 			<ng-view></ng-view>
 		</div>
+        <!-- build:js js/framworks.js -->
 		<script src='bower_components/jquery/dist/jquery.min.js'></script>
         <script src='bower_components/bootstrap/dist/js/bootstrap.min.js'></script>
 		<script src='bower_components/angular/angular.min.js'></script>
 		<script src='bower_components/angular-route/angular-route.min.js'></script>
+        <!-- endbuild -->
 		
 
         <!-- build:js js/rbApp.js -->
@@ -61,6 +65,6 @@
         <script src="js/factories/valFormFact.js"></script>
         <script src="js/factories/treeFact.js"></script>
         <script src="js/factories/makePdfFact.js"></script>
-        <!-- endbuild-->
+        <!-- endbuild -->
 	</body>
 </html>

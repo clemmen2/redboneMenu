@@ -11,7 +11,7 @@
         var pdfkit = require('pdfkit');
         var services = {
             dinnerPdf: dinnerPdf
-        }
+        };
         return services;
         function dinnerPdf (menuItems, usePrice, time) {
             var now = new Date();
@@ -32,9 +32,10 @@
                                 fs.mkdirSync(path.parse(filePath).dir);
                                 createPdf();
                             } else {
+                                var i = 0;
                                 var mainCats = [];
                                 menuItems.map(function (curItem) {
-                                    if (mainCats.length == 0) {
+                                    if (mainCats.length === 0) {
                                         mainCats.push(curItem.category.mainCat._id);
                                     } else if (mainCats.indexOf(curItem.category.mainCat._id) == -1){
                                         mainCats.push(curItem.category.mainCat._id);
@@ -76,21 +77,21 @@
                                         }
                                     });
                                     if (tempCat.length !== 0) {
-                                        if (usePrice && (time == "Dinner" || curItem.lunchPrice == "")) {
+                                        if (usePrice && (time == "Dinner" || curItem.lunchPrice === "")) {
                                             doc.fontSize(16 + modSize)
                                                 .text(curItem.name + '    ' + curItem.price, { align: 'center' })
                                                 .fontSize(12 + modSize)
                                                 .text(curItem.desc, { align: 'center' })
                                                 .moveDown();
-                                            for (var i = 0; i < neededSpaces; i++)
+                                            for (i = 0; i < neededSpaces; i++)
                                                 doc.moveDown();
-                                        } else if (usePrice && curItem.lunchPrice != ""){
+                                        } else if (usePrice && curItem.lunchPrice !== ""){
                                             doc.fontSize(16 + modSize)
                                                 .text(curItem.name + '    ' + curItem.lunchPrice, { align: 'center' })
                                                 .fontSize(12 + modSize)
                                                 .text(curItem.desc, { align: 'center' })
                                                 .moveDown();
-                                            for (var i = 0; i < neededSpaces; i++)
+                                            for (i = 0; i < neededSpaces; i++)
                                                 doc.moveDown();
                                         } else {
                                             doc.fontSize(16 + modSize)
@@ -98,38 +99,38 @@
                                                 .fontSize(12 + modSize)
                                                 .text(curItem.desc, { align: 'center' })
                                                 .moveDown();
-                                            for (var i = 0; i < neededSpaces; i++)
+                                            for (i = 0; i < neededSpaces; i++)
                                                 doc.moveDown();
                                         }
                                     } else {
-                                        if (usePrice && (time == "Dinner" || curItem.lunchPrice == "")) {
+                                        if (usePrice && (time == "Dinner" || curItem.lunchPrice === "")) {
                                             doc.fontSize(20 + modSize)
                                                 .text(curItem.category.mainCat.name, { align: 'center' })
                                                 .fontSize(12 + modSize)
                                                 .moveDown();
-                                            for (var i = 0; i < neededSpaces; i++)
+                                            for (i = 0; i < neededSpaces; i++)
                                                 doc.moveDown();
                                             doc.fontSize(16 + modSize)
                                                 .text(curItem.name + '    ' + curItem.price, { align: 'center' })
                                                 .fontSize(12 + modSize)
                                                 .text(curItem.desc, { align: 'center' })
                                                 .moveDown();
-                                            for (var i = 0; i < neededSpaces; i++)
+                                            for (i = 0; i < neededSpaces; i++)
                                                 doc.moveDown();
                                             mainCatIdsUsed.push(curItem.category.mainCat);
-                                        } else if (usePrice && curItem.lunchPrice != "") {
+                                        } else if (usePrice && curItem.lunchPrice !== "") {
                                             doc.fontSize(20 + modSize)
                                                 .text(curItem.category.mainCat.name, { align: 'center' })
                                                 .fontSize(12 + modSize)
                                                 .moveDown();
-                                            for (var i = 0; i < neededSpaces; i++)
+                                            for (i = 0; i < neededSpaces; i++)
                                                 doc.moveDown();
                                             doc.fontSize(16 + modSize)
                                                 .text(curItem.name + '    ' + curItem.lunchPrice, { align: 'center' })
                                                 .fontSize(12 + modSize)
                                                 .text(curItem.desc, { align: 'center' })
                                                 .moveDown();
-                                            for (var i = 0; i < neededSpaces; i++)
+                                            for (i = 0; i < neededSpaces; i++)
                                                 doc.moveDown();
                                             mainCatIdsUsed.push(curItem.category.mainCat);
                                         } else {
@@ -137,14 +138,14 @@
                                                 .text(curItem.category.mainCat.name, { align: 'center' })
                                                 .fontSize(12 + modSize)
                                                 .moveDown();
-                                            for (var i = 0; i < neededSpaces; i++)
+                                            for (i = 0; i < neededSpaces; i++)
                                                 doc.moveDown();
                                             doc.fontSize(16 + modSize)
                                                 .text(curItem.name, { align: 'center' })
                                                 .fontSize(12 + modSize)
                                                 .text(curItem.desc, { align: 'center' })
                                                 .moveDown();
-                                            for (var i = 0; i < neededSpaces; i++)
+                                            for (i = 0; i < neededSpaces; i++)
                                                 doc.moveDown();
                                             mainCatIdsUsed.push(curItem.category.mainCat);
                                         }
@@ -158,6 +159,6 @@
                 });
             };
             createPdf();
-        };
-    };
+        }
+    }
 })();

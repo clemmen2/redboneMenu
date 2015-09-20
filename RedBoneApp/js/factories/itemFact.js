@@ -15,7 +15,7 @@
             editItem: editItem
         };
         var cache = $cacheFactory('itemCache');
-        return services
+        return services;
         function getItemsDB(callback) {
             var items = cache.get('items');
             categoryFact.getCatsDB(function (cats) {
@@ -40,11 +40,11 @@
                     callback(items);
                 }
             });
-        };
+        }
         function putItemDB(item) {
             var items = cache.get('items');
             if (!items)
-                getItemsDB(function (idc) { items = cache.get('items') });
+                getItemsDB(function (idc) { items = cache.get('items'); });
             item._id = '0';
             item._id = String(parseInt(items.reduce(function (prev, curr) {
                 if (parseInt(prev._id) < parseInt(curr._id)) {
@@ -62,28 +62,28 @@
             items.push(item);
             cache.put('items', items);
             
-        };
+        }
         function getToForm() {
             var item = cache.get('item');
             if (!item)
                 return null;
             return item;
-        };
+        }
         function toForm(id) {
             var items = cache.get('items');
             if (!items)
-                getItemsDB(function (idc) { items = cache.get('items') });
+                getItemsDB(function (idc) { items = cache.get('items'); });
             items.map(function (intItem) {
                 if (intItem._id == id) {
                     cache.put('item', intItem);
                     $rootScope.$broadcast('editItem');
                 }
             });
-        };
+        }
         function removeItem(id) {
             var items = cache.get('items');
             if (!items)
-                getItemsDB(function (idc) { items = cache.get('items') });
+                getItemsDB(function (idc) { items = cache.get('items'); });
             fs.readFile(path.resolve(process.cwd() + '/data/menuItems.txt'), { encoding: 'utf8' }, function (err, data) {
                 var lines = data.split('\r\n');
                 var file = lines.filter(function (line) {
@@ -102,11 +102,11 @@
                     return true;
             });
             cache.put('items', items);
-        };
+        }
         function editItem(intItem) {
             var items = cache.get('items');
             if (!items)
-                getItemsDB(function (idc) { items = cache.get('items') });
+                getItemsDB(function (idc) { items = cache.get('items'); });
             fs.readFile(path.resolve(process.cwd() + '/data/menuItems.txt'), { encoding: 'utf8' }, function (err, data) {
                 var lines = data.split('\r\n');
                 var file = lines.map(function (line) {
@@ -127,6 +127,6 @@
                     return item;
             });
             cache.put('items', items);
-        };
+        }
     }
 })();

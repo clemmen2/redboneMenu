@@ -10,8 +10,8 @@
         var services = {
             getCatsDB: getCatsDB,
             getMainCatsDB: getMainCatsDB
-        }
-        return services
+        };
+        return services;
         function getCatsDB(callback) {
             var cats = cache.get('categories');
             var mainCats = cache.get('mainCategories');
@@ -37,7 +37,7 @@
             } else {
                 callback(cats);
             }
-        };
+        }
         function getMainCatsDB(callback) {
             var mainCats = cache.get('mainCategories');
             if (!mainCats) {
@@ -51,6 +51,6 @@
             } else {
                 callback(mainCats);
             }
-        };
+        }
     }
 })();
