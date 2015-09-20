@@ -12,7 +12,8 @@
         });
         vm.catId = $routeParams.catId;
         vm.removeItem = function (id) {
-            itemFact.removeItem(id);
+            if (confirm('Are you sure you want to delete this item?'))
+                itemFact.removeItem(id);
             itemFact.getItemsDB(function (items) {
                 vm.items = items;
             });
