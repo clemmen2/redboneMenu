@@ -34,8 +34,15 @@
             clearForm();
         };
         vm.edit = function () {
-            itemFact.editItem(vm.item);
-            clearForm();
+            newItem = valFormFact(vm.item);
+            vm.err = [];
+            if (newItem.err.length > 0) {
+                for (var err in newItem.err)
+                    vm.err.push(newItem.err[err]);
+            } else {
+                itemFact.editItem(newItem.item);
+                clearForm();
+            }
         };
         $scope.$on('editItem', function () {
             vm.item = itemFact.getToForm();

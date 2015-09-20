@@ -9,6 +9,7 @@
             function createError(msg) {
                 err.push({ from: errFrom, error: msg });
             }
+            console.log(item);
             if (item.name === '') {
                 createError('Please supply a name for the item.');
             } else if (!regexpConst.NAME.test(item.name)) {
@@ -22,6 +23,7 @@
                         createError('Please supply a valid price for the item.');
                     } else {
                         priceArray = regexpConst.FILTERNUM.exec(item.price);
+                        console.log(priceArray);
                         item.price = priceArray[1];
                     }
                 }
@@ -34,6 +36,7 @@
                         createError('Please supply a valid lunch price for the item.');
                     } else {
                         priceArray = regexpConst.FILTERNUM.exec(item.lunchPrice);
+                        console.log(priceArray);
                         item.lunchPrice = priceArray[1];
                     }
                 }
