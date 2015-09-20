@@ -1,0 +1,10 @@
+<div class='row'>
+	<div class='col-sm-3' ng-controller='treeCtrl as tree'>
+				<ul class="list-group">
+					<li ng-repeat='cat in tree.cats' class='list-group-item'><a href='#/catAdd/{{cat._id}}'>{{cat.name}}</a></li>
+				</ul>
+	</div>
+	<div class='col-sm-9' ng-controller='addTreeCtrl as addTree'>
+		<ng-include src="'tmpl/addtree.html'"></ng-include>
+	</div>
+</div>

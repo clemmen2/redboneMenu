@@ -1,0 +1,25 @@
+.navbar.appBar{
+	-webkit-app-region: drag;
+	-webkit-user-select: none;
+	border-radius: 0;
+}
+.navbar.appBar a, .navbar.appBar button{
+	-webkit-app-region: no-drag;
+}
+.row {
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+textarea{
+	border-radius: 4px;
+	color: #555;
+	border: 1px solid #ccc;
+}
+.noResize{
+	resize: none;
+}
+body{
+	padding-top: 70px;
+	background-color: #eeeeee;
+}
