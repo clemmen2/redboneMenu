@@ -1,5 +1,5 @@
 _id	name	price	desc	catId	lunchPrice
-1	Bermuda Triangles	8.5	Baked, Light Puff Pastry with Chicken, Bacon and Cream Cheese	1
+1	Bermuda Triangles	8.5	Baked, Light Puff Pastry with Chicken, Bacon and Cream Cheese	1	
 2	Shrimp and Grits	16	Spicy Fried Shrimp, Seared Ham, Mushrooms and Green Onions	2	9
 3	Marinated, Grilled Rib Eye	20	Citrus and Soy Marinated, Flash Grilled, Caramelized Onions	3	
 4	Chicken Leo	17	Boneless Fried Chicken, Seared Ham, and Mozzarella over Fettuccine Alfredo	4	9

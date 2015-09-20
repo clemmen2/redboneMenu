@@ -211,3 +211,17 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+/RedBoneApp/nw/win32.zip
+/RedBoneApp/redboneWin32.zip
+/RedBoneApp/nw/nwjs-v0.12.3-win-ia32/locales
+/RedBoneApp/nw/nwjs-v0.12.3-win-ia32/pdf.dll
+/RedBoneApp/nw/nwjs-v0.12.3-win-ia32/nwjc.exe
+/RedBoneApp/nw/nwjs-v0.12.3-win-ia32/nw.pak
+/RedBoneApp/nw/nwjs-v0.12.3-win-ia32/nw.exe
+/RedBoneApp/nw/nwjs-v0.12.3-win-ia32/libGLESv2.dll
+/RedBoneApp/nw/nwjs-v0.12.3-win-ia32/libEGL.dll
+/RedBoneApp/nw/nwjs-v0.12.3-win-ia32/icudtl.dat
+/RedBoneApp/nw/nwjs-v0.12.3-win-ia32/ffmpegsumo.dll
+/RedBoneApp/nw/nwjs-v0.12.3-win-ia32/d3dcompiler_47.dll
+/RedBoneApp/nw/nwjs-v0.12.3-win-ia32/credits.html
+/RedBoneApp/dist

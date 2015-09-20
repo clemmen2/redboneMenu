@@ -13,9 +13,9 @@
                     { expand: true, src: 'index.html', dest: 'dist/' }
                 ]
             },
-            templ: {
+            tmpl: {
                 files: [
-                    { expand: true, src: 'templ/*.html', dest: 'dist/' }
+                    { expand: true, src: 'tmpl/*.html', dest: 'dist/' }
                 ]
             },
             data: {
@@ -35,14 +35,7 @@
         },
         clean: {
             dist: ['dist/'],
-            nw: ['nw/']
-        },
-        wget: {
-            win32: {
-                files: {
-                    'nw/win32.zip': 'http://dl.nwjs.io/v0.12.3/nwjs-v0.12.3-win-ia32.zip'
-                }
-            }
+            zip: ['*.zip']
         },
         unzip: {
             win32: {
@@ -58,13 +51,14 @@
                 },
                 files: [
 				{ expand: true, cwd: 'nw/nwjs-v0.12.3-win-ia32', src: ['**'], dest: '.' },
-				{ expand: true, cwd: 'dist/', src: ['**'], dest: 'dist/' },
+				{ expand: true, cwd: 'dist/', src: ['**'], dest: '.' },
 				{ expand: true, cwd: '.', src: ['package.json', 'dog.png', 'dog.ico', '../LICENSE'], dest: '.' },
 				{ expand: true, cwd: 'node_modules/', src: ['dateformat/**'], dest: 'node_modules/' },
 				{ expand: true, cwd: 'node_modules/', src: ['csv-parse/**'], dest: 'node_modules/' },
 				{ expand: true, cwd: 'node_modules/', src: ['pdfkit/**'], dest: 'node_modules/' },
 				{ expand: true, cwd: 'node_modules/', src: ['open/**'], dest: 'node_modules/' },
-				{ expand: true, cwd: 'node_modules/', src: ['userdir/**'], dest: 'node_modules/' }
+				{ expand: true, cwd: 'node_modules/', src: ['userdir/**'], dest: 'node_modules/' },
+                { expand: true, cwd: 'bower_components/bootstrap/dist/', src: ['fonts/**'], dest: '.' }
                 ]
             }
         }
@@ -80,5 +74,5 @@
     grunt.loadNpmTasks('grunt-zip');
     grunt.loadNpmTasks('grunt-wget');
     grunt.registerTask('default', ['jshint:src']);
-    grunt.registerTask('build', ['copy', 'jshint:src', 'useminPrepare', 'concat:generated', 'uglify:generated', 'cssmin:generated', 'usemin']);
+    grunt.registerTask('build', ['copy', 'jshint:src', 'useminPrepare', 'concat:generated', 'uglify:generated', 'cssmin:generated', 'usemin', 'compress']);
 };
