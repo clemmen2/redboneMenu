@@ -8,3 +8,23 @@
 		<button class='btn' ng-class="{'btn-success': addTree.price,'btn-danger': !addTree.price}" ng-click='addTree.priceTog()'>Display Price</button>
         <button class='btn btn-success' ng-click='addTree.timeTog()'>{{addTree.time}}</button>
 	</div>
+    <div class="row">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <input type="checkbox" ng-model='addTree.useMod' ng-change="addTree.onChange()">
+                Modify Defaults
+            </span>
+        </div>
+        <div class="col-md-6">
+            <div class="input-group">
+                <label for="spaces">Add Spaces</label>
+                <input type="number" class="form-control" ng-disabled="!addTree.useMod" id='spaces' ng-model='addTree.neededSpaces'>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="input-group">
+                <label for="font">Add to Font Size</label>
+                <input type="number" class="form-control" ng-disabled="!addTree.useMod" id='font' ng-model='addTree.modSize'>
+            </div>
+        </div>
+    </div>

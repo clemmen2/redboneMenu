@@ -28,8 +28,43 @@
             });
         };
         vm.save = function () {
-            var tomenu = $filter('orderBy')(vm.items, 'category.mainCat.pos');
-            makePdfFact.dinnerPdf(tomenu, vm.price, vm.time);
+            if (!vm.useMod)
+                vm.onChange();
+            var pdfFormat = {
+                menu: $filter('orderBy')(vm.items, 'category.mainCat.pos'),
+                showPrice: vm.price,
+                time: vm.time,
+                neededSpaces: vm.neededSpaces,
+                modSize: vm.modSize
+            };
+            makePdfFact.dinnerPdf(pdfFormat);
         };
+        vm.onChange = function () {
+            var mainCats = [];
+            vm.items.map(function (curItem) {
+                if (mainCats.length === 0) {
+                    mainCats.push(curItem.category.mainCat._id);
+                } else if (mainCats.indexOf(curItem.category.mainCat._id) == -1) {
+                    mainCats.push(curItem.category.mainCat._id);
+                }
+            });
+            vm.modSize = 0;
+            var modSpaces = mainCats.length;
+            if (vm.items.length <= 3) {
+                vm.modSize = 10;
+                modSpaces = modSpaces + 3;
+            } else if (vm.items.length == 4) {
+                vm.modSize = 6;
+                modSpaces = modSpaces + 2;
+            } else if (vm.items.length <= 8) {
+                vm.modSize = 4;
+                modSpaces = modSpaces + 1;
+                if (mainCats.length > 1) {
+                    vm.modSize = vm.modSize - 1;
+                    modSpaces = modSpaces - 1;
+                }
+            }
+            vm.neededSpaces = (9 - vm.items.length) - modSpaces;
+        }
     }
 })();

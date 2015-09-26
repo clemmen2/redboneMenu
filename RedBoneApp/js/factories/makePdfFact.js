@@ -13,9 +13,18 @@
             dinnerPdf: dinnerPdf
         };
         return services;
-        function dinnerPdf (menuItems, usePrice, time) {
+        function dinnerPdf (format) {
             var now = new Date();
             var filePath = path.join(userdir, '/Desktop', 'RedboneSetMenus', dateformat(now, "mmm_dd_yyyy"), dateformat(now, "hh_MM") + '.pdf');
+            var menuItems = format.menu;
+            var usePrice = format.showPrice;
+            var time = format.time;
+            var neededSpaces = format.neededSpaces;
+            var modSize = format.modSize;
+            function addSpaces(doc) {
+                for (i = 0; i < neededSpaces; i++)
+                    doc.moveDown();
+            }
             var createPdf = function () {
                 var doc = new pdfkit();
                 doc.info = {
@@ -32,32 +41,7 @@
                                 fs.mkdirSync(path.parse(filePath).dir);
                                 createPdf();
                             } else {
-                                var i = 0;
-                                var mainCats = [];
-                                menuItems.map(function (curItem) {
-                                    if (mainCats.length === 0) {
-                                        mainCats.push(curItem.category.mainCat._id);
-                                    } else if (mainCats.indexOf(curItem.category.mainCat._id) == -1){
-                                        mainCats.push(curItem.category.mainCat._id);
-                                    }
-                                });
-                                var modSize = 0;
-                                var modSpaces = mainCats.length;
-                                if (menuItems.length <= 3) {
-                                    modSize = 10;
-                                    modSpaces = modSpaces + 3;
-                                } else if (menuItems.length == 4) {
-                                    modSize = 6;
-                                    modSpaces = modSpaces + 2;
-                                } else if (menuItems.length <= 8) {
-                                    modSize = 4;
-                                    modSpaces = modSpaces + 1;
-                                    if (mainCats.length > 1) {
-                                        modSize = modSize - 1;
-                                        modSpaces = modSpaces - 1;
-                                    }
-                                }
-                                var neededSpaces = (9 - menuItems.length) - modSpaces;
+                                
                                 var writeStream = fs.createWriteStream(filePath);
                                 doc.pipe(writeStream);
                                 doc.roundedRect(50,50,510,700,10)
@@ -83,24 +67,21 @@
                                                 .fontSize(12 + modSize)
                                                 .text(curItem.desc, { align: 'center' })
                                                 .moveDown();
-                                            for (i = 0; i < neededSpaces; i++)
-                                                doc.moveDown();
+                                                addSpaces(doc)
                                         } else if (usePrice && curItem.lunchPrice !== ""){
                                             doc.fontSize(16 + modSize)
                                                 .text(curItem.name + '    ' + curItem.lunchPrice, { align: 'center' })
                                                 .fontSize(12 + modSize)
                                                 .text(curItem.desc, { align: 'center' })
                                                 .moveDown();
-                                            for (i = 0; i < neededSpaces; i++)
-                                                doc.moveDown();
+                                                addSpaces(doc)
                                         } else {
                                             doc.fontSize(16 + modSize)
                                                 .text(curItem.name, { align: 'center' })
                                                 .fontSize(12 + modSize)
                                                 .text(curItem.desc, { align: 'center' })
                                                 .moveDown();
-                                            for (i = 0; i < neededSpaces; i++)
-                                                doc.moveDown();
+                                                addSpaces(doc)
                                         }
                                     } else {
                                         if (usePrice && (time == "Dinner" || curItem.lunchPrice === "")) {
@@ -108,45 +89,39 @@
                                                 .text(curItem.category.mainCat.name, { align: 'center' })
                                                 .fontSize(12 + modSize)
                                                 .moveDown();
-                                            for (i = 0; i < neededSpaces; i++)
-                                                doc.moveDown();
+                                                addSpaces(doc)
                                             doc.fontSize(16 + modSize)
                                                 .text(curItem.name + '    ' + curItem.price, { align: 'center' })
                                                 .fontSize(12 + modSize)
                                                 .text(curItem.desc, { align: 'center' })
                                                 .moveDown();
-                                            for (i = 0; i < neededSpaces; i++)
-                                                doc.moveDown();
+                                                addSpaces(doc)
                                             mainCatIdsUsed.push(curItem.category.mainCat);
                                         } else if (usePrice && curItem.lunchPrice !== "") {
                                             doc.fontSize(20 + modSize)
                                                 .text(curItem.category.mainCat.name, { align: 'center' })
                                                 .fontSize(12 + modSize)
                                                 .moveDown();
-                                            for (i = 0; i < neededSpaces; i++)
-                                                doc.moveDown();
+                                                addSpaces(doc)
                                             doc.fontSize(16 + modSize)
                                                 .text(curItem.name + '    ' + curItem.lunchPrice, { align: 'center' })
                                                 .fontSize(12 + modSize)
                                                 .text(curItem.desc, { align: 'center' })
                                                 .moveDown();
-                                            for (i = 0; i < neededSpaces; i++)
-                                                doc.moveDown();
+                                                addSpaces(doc)
                                             mainCatIdsUsed.push(curItem.category.mainCat);
                                         } else {
                                             doc.fontSize(20 + modSize)
                                                 .text(curItem.category.mainCat.name, { align: 'center' })
                                                 .fontSize(12 + modSize)
                                                 .moveDown();
-                                            for (i = 0; i < neededSpaces; i++)
-                                                doc.moveDown();
+                                                addSpaces(doc)
                                             doc.fontSize(16 + modSize)
                                                 .text(curItem.name, { align: 'center' })
                                                 .fontSize(12 + modSize)
                                                 .text(curItem.desc, { align: 'center' })
                                                 .moveDown();
-                                            for (i = 0; i < neededSpaces; i++)
-                                                doc.moveDown();
+                                                addSpaces(doc)
                                             mainCatIdsUsed.push(curItem.category.mainCat);
                                         }
                                     }

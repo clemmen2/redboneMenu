@@ -24,12 +24,12 @@
   },
   "window": {
     "icon": "dog.png",
-    "toolbar": false,
+    "toolbar": true,
     "frame": false,
     "width": 1000,
-    "height": 500,
+    "height": 600,
     "min_width": 1000,
-    "min_height": 500
+    "min_height": 600
   },
   "webkit": {
     "plugin": true
